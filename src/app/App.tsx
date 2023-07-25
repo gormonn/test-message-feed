@@ -2,23 +2,27 @@ import { useState } from 'react';
 import reactLogo from 'shared/assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
+import { createFakeFeed } from 'shared/api/fake';
 
 function App() {
     const [count, setCount] = useState(0);
-
+    const fake = () => {
+        const users = createFakeFeed();
+        console.log(users);
+    };
     return (
         <>
             <div>
                 <a href="https://vitejs.dev" target="_blank">
                     <img src={viteLogo} className="logo" alt="Vite logo" />
                 </a>
-                <a href="https://react.dev" target="_blank">
+                <button onClick={fake}>
                     <img
                         src={reactLogo}
                         className="logo react"
                         alt="React logo"
                     />
-                </a>
+                </button>
             </div>
             <h1>Vite + React</h1>
             <div className="card">

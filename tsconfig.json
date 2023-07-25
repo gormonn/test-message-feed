@@ -23,6 +23,10 @@
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "node_modules/**/*",
+    "node_modules/.pnpm/date-fns@2.30.0/node_modules/date-fns/typings.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
