@@ -8,9 +8,9 @@ export type User = {
     avatar: Nullable<string>;
 };
 
-export type Message = {
+export type FeedMessage = {
     id: string;
     date: string;
     text: string;
-    author: User;
+    userId: string;
 };

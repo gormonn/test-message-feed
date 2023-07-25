@@ -1,4 +1,5 @@
 import { User } from 'shared/lib/types';
+import { FeedFilterPayload } from 'shared/api/index';
 
 export const getRand = (min: number, max: number) =>
     Math.floor(Math.random() * (max - min + 1) + min);
@@ -17,3 +18,11 @@ export const getRandomDuration = () => {
         seconds: getRand(0, 60),
     };
 };
+
+export const matchUser = (
+    users: FeedFilterPayload['users'],
+    userId: User['id'],
+) => Boolean(users?.includes(userId));
+
+export const matchText = (search: string, messageText: string) =>
+    Boolean(search && messageText.includes(search));
