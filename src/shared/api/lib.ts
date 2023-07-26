@@ -12,8 +12,8 @@ export const getRandomDuration = () => {
         years: 0,
         months: 0,
         weeks: 0,
-        days: getRand(0, 2),
-        hours: getRand(0, 24),
+        days: 0,
+        hours: getRand(0, 1),
         minutes: getRand(0, 60),
         seconds: getRand(0, 60),
     };
