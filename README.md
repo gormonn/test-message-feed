@@ -1,15 +1,44 @@
-лента текстовых сообщений с фильтрацией.
+Лента текстовых сообщений с фильтрацией.
 Сообщения состоят из:
 - даты и времени;
 - текста;
 - автора.
--
+
 Модальное окно добавления нового сообщения
 - Поле ввода текста со счётчиком символов и ограничением по длине 200 знаков.
--
+
 Страница автора:
 - произвольная информация по автору;
 - список сообщений.
+
+Roadmap:
+- [*] Fake API 
+  - [*] Generate data with config
+  - [*] Fake AxiosInstance
+  - [*] Add API client methods
+- [*] Chat Layout
+  - [*] Virtual list
+  - [*] Scroll from bottom
+  - [*] "Go back" button
+- [] Add new message
+  - [] Add modal with textarea and symbols count checker 
+  - [*] API method (done)
+  - [] Update chat
+- [] Searching
+  - [] Add highlight wrapper to texts 
+  - [] Add search logic to model
+- [] Filtration
+  - [] Add filter UI by user, and by 
+  - [] Add filter logic to model
+- [] Search + Filter, AND/OR problems
+  - [] Ask an HR about this
+- [] UserInfo with user's messages
+  - [] Add layout with user's info
+  - [] Add model for get messages by user
+- [] Beautify and tech debt
+- [] Build optimizations
+  - [] css & js minimize
+
 
 Обращения к серверу можно замокать и описать требуемое API.
 - get /feed
