@@ -4,6 +4,7 @@
 .daySplit{
   display: flex;
   justify-content: center;
+  padding: .5rem;
   & .text {
     border-radius: 1.5rem;
     background: #535bf2;
@@ -12,40 +13,50 @@
   }
 }
 
-.message{
-  padding: 0.5rem;
-  background: bg.$primary;
-  border-radius: .5rem;
-  border: 1px solid gray;
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: .25rem;
 
-
-  & .text{
-    color: typo.$primary;
-    padding-top: .5rem;
-  }
-
-  & .date{
-    color: typo.$secondary;
-    text-align: right;
-    font-size: typo.$small;
-  }
-
-  & .user{
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    align-items: center;
-
-    & .avatar{
-      width: 3rem;
-      height: 3rem;
-      border-radius: 1.5rem;
+  &.isMy {
+    flex-direction: row-reverse;
+    & .message {
+      & .user {
+        flex-direction: row-reverse;
+      }
     }
   }
 
-  &.isMy{
-    & .user{
-      flex-direction: row-reverse;
+  .message {
+    padding: 0.5rem;
+    background: bg.$primary;
+    border-radius: .5rem;
+    border: 1px solid gray;
+    max-width: 480px;
+
+    .text {
+      color: typo.$primary;
+      padding-top: .5rem;
     }
+
+    .date {
+      color: typo.$secondary;
+      text-align: right;
+      font-size: typo.$small;
+    }
+
+    .user {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      align-items: center;
+
+      .avatar {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.5rem;
+      }
+    }
+
   }
 }

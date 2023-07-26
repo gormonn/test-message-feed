@@ -1,5 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { createGate } from 'effector-react';
+import { pending, status } from 'patronum';
 import { api } from 'shared/api';
 import { FeedMessage } from 'shared/lib/types';
 
@@ -26,8 +27,16 @@ sample({
     target: $feed,
 });
 
+const $isLoading = pending({
+    effects: [getFeedFx],
+    of: 'every',
+});
+const $status = status({ effect: getFeedFx });
+
 export const model = {
     load,
     getFeed,
     $feed,
+    $isLoading,
+    $status,
 };

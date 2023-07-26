@@ -34,24 +34,28 @@ export const Message = (props: MessageProps) => {
                 </div>
             )}
             <div
-                className={clsx(styles.message, { [styles.isMy]: props.isMy })}
+                className={clsx(styles.container, {
+                    [styles.isMy]: props.isMy,
+                })}
             >
-                <div className={styles.user}>
-                    <img
-                        className={styles.avatar}
-                        src={
-                            user?.avatar ||
-                            `https://avatar.oxro.io/avatar.svg?name=${user?.firstName}+${user?.lastName}`
-                        }
-                        alt="avatar"
-                    />
-                    <b className={styles.name}>
-                        {/*todo: добавить прелоадер */}
-                        {user?.firstName} {user?.lastName}
-                    </b>
+                <div className={styles.message}>
+                    <div className={styles.user}>
+                        <img
+                            className={styles.avatar}
+                            src={
+                                user?.avatar ||
+                                `https://avatar.oxro.io/avatar.svg?name=${user?.firstName}+${user?.lastName}`
+                            }
+                            alt="avatar"
+                        />
+                        <b className={styles.name}>
+                            {/*todo: добавить прелоадер */}
+                            {user?.firstName} {user?.lastName}
+                        </b>
+                    </div>
+                    <div className={styles.text}>{props.text}</div>
+                    <div className={styles.date}>{getISOTime(props.date)}</div>
                 </div>
-                <div className={styles.text}>{props.text}</div>
-                <div className={styles.date}>{getISOTime(props.date)}</div>
             </div>
         </>
     );
