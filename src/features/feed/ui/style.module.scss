@@ -1,0 +1,51 @@
+@use 'src/app/background' as bg;
+@use 'src/app/typo' as typo;
+
+.daySplit{
+  display: flex;
+  justify-content: center;
+  & .text {
+    border-radius: 1.5rem;
+    background: #535bf2;
+    padding: .5rem;
+    font-size: typo.$small;
+  }
+}
+
+.message{
+  padding: 0.5rem;
+  background: bg.$primary;
+  border-radius: .5rem;
+  border: 1px solid gray;
+
+
+  & .text{
+    color: typo.$primary;
+    padding-top: .5rem;
+  }
+
+  & .date{
+    color: typo.$secondary;
+    text-align: right;
+    font-size: typo.$small;
+  }
+
+  & .user{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+
+    & .avatar{
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  &.isMy{
+    & .user{
+      flex-direction: row-reverse;
+    }
+  }
+}

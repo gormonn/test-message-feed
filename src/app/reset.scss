@@ -1,0 +1,9 @@
+@use 'background' as bg;
+@use 'typo' as typo;
+@import "normalize.css";
+
+body{
+  color: typo.$primary;
+  background: bg.$secondary;
+  font-size: typo.$normal;
+}

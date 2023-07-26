@@ -1,16 +1,21 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { createFakeData, createMessage } from './fake-data';
+import { createFakeData, createMessage, FakeFeedConfig } from './fake-data';
 import { FeedFilterPayload } from 'shared/api/index';
-import { getRandomUser, matchText, matchUser } from 'shared/api/utils';
+import { getRandomUser, matchText, matchUser } from 'shared/api/lib';
 
 const fakeInstance = new MockAdapter(axios, { delayResponse: 300 });
-const { users, feed } = createFakeData();
+
+const config: FakeFeedConfig = {
+    feedCount: 100,
+    usersCount: 2,
+};
+const { users, feed } = createFakeData(config);
 const currentUser = getRandomUser(users);
 
 fakeInstance.onGet('/user/me').reply(200, currentUser);
 fakeInstance.onGet(new RegExp(`/user/*`)).reply((config) => {
-    const userId = config?.url?.split('/')?.[1];
+    const userId = config?.url?.split('/')?.[2];
     const user = users.find((user) => user.id === userId);
     if (userId) {
         return user ? [200, user] : [404];

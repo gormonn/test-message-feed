@@ -1,7 +1,9 @@
 import add from 'date-fns/add';
-import { faker } from '@faker-js/faker';
-import { getRand, getRandomDuration, getRandomUser } from 'shared/api/utils';
+import { Faker, en, base } from '@faker-js/faker';
+import { getRand, getRandomDuration, getRandomUser } from 'shared/api/lib';
 import { FeedMessage, User } from 'shared/lib/types';
+
+const faker = new Faker({ locale: [en, base] });
 
 export const getFakeUser = (): User => ({
     id: faker.string.uuid(),
@@ -60,7 +62,7 @@ export const getFakeMessages = (users: User[], length = 30) => {
 };
 
 export type FakeFeedConfig = {
-    messageCount?: number;
+    feedCount?: number;
     usersCount?: number;
 };
 export type FakeFeedReturn = {
@@ -70,6 +72,6 @@ export type FakeFeedReturn = {
 
 export function createFakeData(config?: FakeFeedConfig): FakeFeedReturn {
     const users = getFakeUsers(config?.usersCount);
-    const feed = getFakeMessages(users, config?.messageCount);
+    const feed = getFakeMessages(users, config?.feedCount);
     return { users, feed };
 }
