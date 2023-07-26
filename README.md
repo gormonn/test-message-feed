@@ -21,7 +21,7 @@ Roadmap:
   - [x] Scroll from bottom
   - [x] "Go back" button
 - [ ] Add new message
-  - [ ] Add modal with textarea and symbols count checker 
+  - [x] Add modal with textarea and symbols count checker 
   - [x] API method (done)
   - [ ] Update chat
 - [ ] UserInfo with user's messages

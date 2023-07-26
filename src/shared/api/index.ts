@@ -11,7 +11,6 @@ const users = {
 
 export type FeedNewMessagePayload = {
     text: string;
-    user: string;
 };
 export type FeedFilterPayload = {
     users?: string[];

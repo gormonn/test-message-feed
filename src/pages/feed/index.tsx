@@ -71,7 +71,7 @@ export const FeedPage = () => {
                         })
                     }
                 >
-                    Вниз
+                    Down
                 </animated.button>
             )}
         </div>
