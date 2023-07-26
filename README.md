@@ -12,32 +12,32 @@
 - список сообщений.
 
 Roadmap:
-- [*] Fake API 
-  - [*] Generate data with config
-  - [*] Fake AxiosInstance
-  - [*] Add API client methods
-- [*] Chat Layout
-  - [*] Virtual list
-  - [*] Scroll from bottom
-  - [*] "Go back" button
-- [] Add new message
-  - [] Add modal with textarea and symbols count checker 
-  - [*] API method (done)
-  - [] Update chat
-- [] Searching
-  - [] Add highlight wrapper to texts 
-  - [] Add search logic to model
-- [] Filtration
-  - [] Add filter UI by user, and by 
-  - [] Add filter logic to model
-- [] Search + Filter, AND/OR problems
-  - [] Ask an HR about this
-- [] UserInfo with user's messages
-  - [] Add layout with user's info
-  - [] Add model for get messages by user
-- [] Beautify and tech debt
-- [] Build optimizations
-  - [] css & js minimize
+- [x] Fake API 
+  - [x] Generate data with config
+  - [x] Fake AxiosInstance
+  - [x] Add API client methods
+- [x] Chat Layout
+  - [x] Virtual list
+  - [x] Scroll from bottom
+  - [x] "Go back" button
+- [ ] Add new message
+  - [ ] Add modal with textarea and symbols count checker 
+  - [x] API method (done)
+  - [ ] Update chat
+- [ ] Searching
+  - [ ] Add highlight wrapper to texts 
+  - [ ] Add search logic to model
+- [ ] Filtration
+  - [ ] Add filter UI by user, and by 
+  - [ ] Add filter logic to model
+- [ ] Search + Filter, AND/OR problems
+  - [ ] Ask an HR about this
+- [ ] UserInfo with user's messages
+  - [ ] Add layout with user's info
+  - [ ] Add model for get messages by user
+- [ ] Beautify and tech debt
+- [ ] Build optimizations
+  - [ ] css & js minimize
 
 
 Обращения к серверу можно замокать и описать требуемое API.
