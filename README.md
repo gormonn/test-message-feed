@@ -24,17 +24,15 @@ Roadmap:
   - [ ] Add modal with textarea and symbols count checker 
   - [x] API method (done)
   - [ ] Update chat
-- [ ] Searching
-  - [ ] Add highlight wrapper to texts 
-  - [ ] Add search logic to model
-- [ ] Filtration
-  - [ ] Add filter UI by user, and by 
-  - [ ] Add filter logic to model
-- [ ] Search + Filter, AND/OR problems
-  - [ ] Ask an HR about this
 - [ ] UserInfo with user's messages
   - [ ] Add layout with user's info
   - [ ] Add model for get messages by user
+- [ ] Filtration
+  - [ ] Add filter UI by text and user
+  - [ ] Add filter logic to model
+  - [ ] Add highlight wrapper to texts
+  - [ ] Resolve AND/OR problems
+    - [ ] Mb discuss this later
 - [ ] Beautify and tech debt
 - [ ] Build optimizations
   - [ ] css & js minimize
