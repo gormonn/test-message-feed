@@ -1,17 +1,28 @@
 import { Feed } from 'features/messages/feed';
 import { messageSendModel, SendMessageModal } from 'features/messages/send';
-import { FilterPanel } from 'features/messages/filter';
+import { filterModel, FilterPanel } from 'features/messages/filter';
 import { useUnit } from 'effector-react';
 import { feedModel } from 'entities/feed';
 import style from './feed-page.module.scss';
 import { Panel } from 'shared/ui/panel';
 
 export const PageFeed = () => {
-    const [openModal, feed, status] = useUnit([
+    const [openModal, feed, status, filteredFeed, filters] = useUnit([
         messageSendModel.openModal,
         feedModel.$feed,
         feedModel.$getFeedStatus,
+        feedModel.$filteredFeed,
+        filterModel.$filters,
     ]);
+
+    // useEffect(() => {
+    //     console.log(filters, 'filter');
+    // }, [filters]);
+    //
+    // useEffect(() => {
+    //     console.log(filteredFeed, 'filteredFeed');
+    // }, [filteredFeed]);
+
     return (
         <>
             <div className={style.page}>

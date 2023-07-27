@@ -10,7 +10,8 @@ export type FeedNewMessagePayload = {
     text: string;
 };
 export type FeedFilterPayload = {
-    users?: string[];
+    // users?: Nullable<string[]>; // todo#: не забыть сделать много-выбор
+    users?: string;
     search?: string;
     and?: boolean;
 };
