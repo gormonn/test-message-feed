@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 import { useUnit } from 'effector-react';
 import { animated, useChain, useSpring, useSpringRef } from 'react-spring';
-import { useKeyUp } from 'shared/lib/hooks/use-key-up';
+import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
 import style from './form.module.scss';
 import { model } from '../model';
 
@@ -16,8 +16,8 @@ export const Modal = forwardRef<
     HTMLDivElement,
     ComponentPropsWithoutRef<'div'> & ModalProps
 >(({ head, body, footer, openHandler }, ref) => {
-    const [setModalOpen, isModalOpen] = useUnit([
-        model.setModalOpen,
+    const [closeModal, isModalOpen] = useUnit([
+        model.closeModal,
         model.$isModalOpen,
     ]);
 
@@ -49,8 +49,8 @@ export const Modal = forwardRef<
         200,
     );
 
-    useKeyUp(() => {
-        setModalOpen(false);
+    useHotkeys(shortcutsKeys.close, closeModal, {
+        enabled: isModalOpen,
     });
 
     return (
@@ -59,18 +59,11 @@ export const Modal = forwardRef<
             className={style.modal}
             style={{ opacity, display }}
         >
-            <div
-                tabIndex={-1}
-                className={style.overlay}
-                onClick={() => setModalOpen(false)}
-            />
+            <div tabIndex={-1} className={style.overlay} onClick={closeModal} />
             <div className={style.content}>
                 <div className={style.head}>
                     {head}
-                    <button
-                        className={style.close}
-                        onClick={() => setModalOpen(false)}
-                    />
+                    <button className={style.close} onClick={closeModal} />
                 </div>
                 <div className={style.body}>{body}</div>
                 <div className={style.footer}>{footer}</div>

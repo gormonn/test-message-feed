@@ -26,6 +26,8 @@ Roadmap:
   - [x] Optimistic Update chat on message
   - [x] Auto focus input 
   - [x] Handle ESC/ENTER key press
+  - [x] Add keyboard shortcuts
+  - [x] Fix line break of messages
 - [ ] UserInfo with user's messages
   - [ ] Add layout with user's info
   - [ ] Add model for get messages by user
@@ -37,6 +39,10 @@ Roadmap:
     - [ ] Mb discuss this later
 - [ ] Beautify and tech debt
   - [ ] Add aria?
+  - [ ] Add cheat-sheet with keyboard shortcuts
+  - [ ] Move textarea component to ui module?
+  - [ ] Use contenteditable instead of textarea
+  - [ ] Use mount/unmount instead of display:none in Modal
 - [ ] Build optimizations
   - [ ] css & js minimize
  

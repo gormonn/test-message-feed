@@ -38,10 +38,12 @@ export const FeedPage = () => {
     useEffect(() => {
         // todo: если atBottom === false - то нужно отобразить значок того, что новое сообщение?
         // todo#bug: срабатывает через раз
-        virtuosoRef?.current?.scrollToIndex({
-            index: feed.length - 1,
-            behavior: 'smooth',
-            align: 'start',
+        queueMicrotask(() => {
+            virtuosoRef?.current?.scrollToIndex({
+                index: feed.length - 1,
+                behavior: 'smooth',
+                align: 'start',
+            });
         });
     }, [virtuosoRef, feed.length]);
 

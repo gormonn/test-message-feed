@@ -37,6 +37,8 @@
     .text {
       color: typo.$primary;
       padding-top: .5rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
     .date {

@@ -1,9 +1,22 @@
-import { createEffect, createEvent, restore, sample } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import { reset, status } from 'patronum';
 import { api } from 'shared/api';
 
-const setModalOpen = createEvent<boolean>();
-const $isModalOpen = restore(setModalOpen, false);
+const openModal = createEvent();
+const closeModal = createEvent();
+const $isModalOpen = createStore<boolean>(false);
+
+sample({
+    clock: openModal,
+    fn: () => true,
+    target: $isModalOpen,
+});
+
+sample({
+    clock: closeModal,
+    fn: () => false,
+    target: $isModalOpen,
+});
 
 const sendMessage = createEvent<string>();
 const sendMessageFx = createEffect(async (text: string) => {
@@ -23,7 +36,8 @@ sample({
 });
 
 export const model = {
-    setModalOpen,
+    openModal,
+    closeModal,
     $isModalOpen,
     $sendingStatus,
     sendMessage,

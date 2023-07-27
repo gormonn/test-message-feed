@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@reecelucas/react-use-hotkeys':
+    specifier: ^2.0.0
+    version: 2.0.0(react@18.2.0)
   axios:
     specifier: ^1.4.0
     version: 1.4.0
@@ -19,6 +22,9 @@ dependencies:
   effector-react:
     specifier: ^22.5.3
     version: 22.5.3(effector@22.8.6)(react@18.2.0)
+  keyboard-event-key-type:
+    specifier: ^1.5.0
+    version: 1.5.0
   normalize.css:
     specifier: ^8.0.1
     version: 8.0.1
@@ -2280,6 +2286,14 @@ packages:
       zustand: 3.7.2(react@18.2.0)
     dev: false
 
+  /@reecelucas/react-use-hotkeys@2.0.0(react@18.2.0):
+    resolution: {integrity: sha512-FIld06jQRLhp3Bl4ykwB/xDALLv2i/1y6ncLYv9wn7ZO7nVDs9HH9oTKFxX7K8U7EQ/bdPWWtN2fy2vci0ssTg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@sideway/address@4.1.4:
     resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
     dependencies:
@@ -4130,6 +4144,10 @@ packages:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
       graceful-fs: 4.2.11
+    dev: false
+
+  /keyboard-event-key-type@1.5.0:
+    resolution: {integrity: sha512-d/yMrq4BREH4isBf/Tj8aQqxP+zudhsfeA91nRVllvkxvGsM5IJVgCiQtZQ+qhM1mpZY3kAjoneUIXRvdABEWw==}
     dev: false
 
   /kind-of@6.0.3:

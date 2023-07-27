@@ -1,24 +1,38 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+    ChangeEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
+import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
 import { ValidationError } from './validation-error';
 import { Modal } from './modal';
 import { MAX_LEN } from './lib';
 import style from './form.module.scss';
 import { model } from '../model';
-import { useKeyUp } from 'shared/lib/hooks/use-key-up';
 
 // todo: предупредить о потере данных при попытке выйти из модалки
 export const SendMessageModal = () => {
-    const [setModalOpen, sendingStatus, sendMessage, isModalOpen] = useUnit([
-        model.setModalOpen,
-        model.$sendingStatus,
-        model.sendMessage,
-        model.$isModalOpen,
-    ]);
+    const [openModal, closeModal, sendingStatus, sendMessage, isModalOpen] =
+        useUnit([
+            model.openModal,
+            model.closeModal,
+            model.$sendingStatus,
+            model.sendMessage,
+            model.$isModalOpen,
+        ]);
 
     const [text, setText] = useState('');
     const [isValid, setIsValid] = useState(true);
+
+    const isInit = sendingStatus === 'initial';
+    const isPending = sendingStatus === 'pending';
+    const isSuccess = sendingStatus === 'done';
+    const isFailed = sendingStatus === 'fail';
+    const isEmpty = text.length === 0;
 
     const inputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
@@ -35,32 +49,38 @@ export const SendMessageModal = () => {
         setIsValid(true);
     };
 
-    const isInit = sendingStatus === 'initial';
-    const isPending = sendingStatus === 'pending';
-    const isSuccess = sendingStatus === 'done';
-    const isFailed = sendingStatus === 'fail';
-
     useEffect(() => {
         if (isSuccess) {
-            setModalOpen(false);
+            closeModal();
             clear();
-            // либо предложить "отправить еще"
         }
-    }, [isSuccess, setModalOpen]);
+    }, [isSuccess, closeModal]);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-    useKeyUp(() => {
-        setModalOpen(true);
-    }, 'Enter');
 
     const openHandler = useCallback(() => {
         queueMicrotask(() => textAreaRef.current?.focus());
     }, [textAreaRef]);
 
+    useHotkeys(shortcutsKeys.openMessageForm, openModal, {
+        enabled: !isModalOpen,
+    });
+
+    useHotkeys(shortcutsKeys.sendMessage, send, {
+        enabled: isModalOpen && isValid && isInit && !isEmpty,
+        ignoredElementWhitelist: ['TEXTAREA'],
+        eventListenerOptions: { capture: true },
+    });
+
+    const onKeyDownCapture = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (!e.shiftKey && e.key === 'Enter') {
+            e.preventDefault();
+        }
+    };
+
     return (
         <>
-            <button onClick={() => setModalOpen(true)}>Send Message</button>
+            <button onClick={openModal}>Send Message</button>
             <Modal
                 openHandler={openHandler}
                 head={<h3>Send Message</h3>}
@@ -75,6 +95,7 @@ export const SendMessageModal = () => {
                                           [style.error]: !isValid,
                                       })}
                                       onChange={inputHandler}
+                                      onKeyDownCapture={onKeyDownCapture}
                                       value={text}
                                   />
                                   <ValidationError isValid={isValid} />
@@ -84,7 +105,7 @@ export const SendMessageModal = () => {
                 footer={
                     <>
                         <button
-                            disabled={!isValid || !isInit || text.length === 0}
+                            disabled={!isValid || !isInit || isEmpty}
                             onClick={send}
                         >
                             {isInit && 'Send'}
