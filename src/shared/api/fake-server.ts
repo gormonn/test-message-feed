@@ -1,11 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fakerConfig } from 'app/faker.config';
+import { fakerConfig, RESPONSE_DELAY } from 'app/faker.config';
 import { FeedFilterPayload } from 'shared/api/index';
 import { getRandomUser, matchText, matchUser } from 'shared/api/lib';
 import { createFakeData, createMessage } from './fake-data';
 
-const fakeInstance = new MockAdapter(axios, { delayResponse: 300 });
+const fakeInstance = new MockAdapter(axios, { delayResponse: RESPONSE_DELAY });
 
 const { users, feed } = createFakeData(fakerConfig);
 const currentUser = getRandomUser(users);

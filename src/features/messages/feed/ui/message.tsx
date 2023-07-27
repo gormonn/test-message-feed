@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useGate, useStoreMap } from 'effector-react';
+import { useGate } from 'effector-react';
 import { isSameDay } from 'date-fns/esm/fp';
 import { usersModel } from 'entities/users';
 import { FeedMessage } from 'shared/lib/types';
 import { getISODay, getISOTime } from 'shared/lib/date';
-import styles from './style.module.scss';
+import { UserLink } from './user-link';
+import styles from './message.module.scss';
 import clsx from 'clsx';
 
 type MessageProps = Omit<FeedMessage, 'id'> & {
@@ -22,10 +23,6 @@ export const Message = (props: MessageProps) => {
         () => !isSameDay(new Date(props.date), new Date(props.prevDate)),
     );
 
-    const user = useStoreMap(usersModel.$usersMap, (users) => {
-        return users.get(props.userId);
-    });
-
     return (
         <>
             {isNextDay && (
@@ -39,20 +36,7 @@ export const Message = (props: MessageProps) => {
                 })}
             >
                 <div className={styles.message}>
-                    <div className={styles.user}>
-                        <img
-                            className={styles.avatar}
-                            src={
-                                user?.avatar ||
-                                `https://avatar.oxro.io/avatar.svg?name=${user?.firstName}+${user?.lastName}`
-                            }
-                            alt="avatar"
-                        />
-                        <b className={styles.name}>
-                            {/*todo: добавить прелоадер */}
-                            {user?.firstName} {user?.lastName}
-                        </b>
-                    </div>
+                    <UserLink userId={props.userId} />
                     <div className={styles.text}>{props.text}</div>
                     <div className={styles.date}>{getISOTime(props.date)}</div>
                 </div>

@@ -2,7 +2,7 @@ import { createEffect, createEvent, sample } from 'effector';
 import { faker } from '@faker-js/faker';
 import { feedModel } from 'entities/feed';
 import { usersModel } from 'entities/users';
-import { messageSendModel } from 'features/message-send';
+import { messageSendModel } from 'features/messages/send';
 
 const optimisticUpdateFeed = createEvent<string>();
 const optimisticUpdateFeedFx = createEffect();
@@ -33,7 +33,6 @@ sample({
             date: new Date().toISOString(),
             userId: currentUser?.id,
         };
-        console.log(newMessage, 'newMessage');
         return [...feed, newMessage];
     },
     target: feedModel.$feed,

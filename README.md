@@ -29,6 +29,7 @@ Roadmap:
   - [x] Add keyboard shortcuts
   - [x] Fix line break of messages
 - [ ] UserInfo with user's messages
+  - [x] Add router
   - [ ] Add layout with user's info
   - [ ] Add model for get messages by user
 - [ ] Filtration
@@ -38,14 +39,44 @@ Roadmap:
   - [ ] Resolve AND/OR problems
     - [ ] Mb discuss this later
 - [ ] Beautify and tech debt
+  - [ ] Fix time format
+  - [ ] Fix date format
+  - [ ] Add Skeleton loading animation
   - [ ] Add aria?
-  - [ ] Add cheat-sheet with keyboard shortcuts
-  - [ ] Move textarea component to ui module?
-  - [ ] Use contenteditable instead of textarea
-  - [ ] Use mount/unmount instead of display:none in Modal
+  - [ ] Add cheat-sheet with keyboard shortcuts 
+  - [ ] Use mount/unmount instead of display:none in Modal 
 - [ ] Build optimizations
   - [ ] css & js minimize
- 
+
+- Known Bugs:
+  - [ ] Reset feed mock data on route
+  - [ ] On change feedCount and reload, smooth scroll down. It will be loaded on down;
+  - [ ] Bad skeletons layout
+  - [ ] Refactoring skeletons like that:
+    ```javascript lines
+      <img/>
+      {isLoading && <Skeleton/>}
+    ```
+
+- Tech Debt:
+  - [ ] Add stable mocks for testing purposes (e.g. user profile page)
+  - [ ] User cache control (need to choose a strategy)
+  - [ ] Use contenteditable instead of textarea (to use stickers)
+  - [ ] Sending / Delivered / Seen / Error
+
+Comments:
+- type FeedMessage have userId field instead of userFullName / userAvatar fields:
+  - It can depends on API design
+  - Pros:
+    - Light version of the message
+  - Cons:
+    - Additional delay when first loading a user
+    - Need to manage user cache
+- I request all messages at once:
+  - It's a bad practice in real life, when the feed is big
+  - So in real life, we need to request messages in parts (by date, page/limit/offset, etc.)
+- I use REST API instead of WS or SSE:
+  - In real life, we need to communicate in real time, but task is very abstract by requirements
 
 # React + TypeScript + Vite
 
