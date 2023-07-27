@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
 import { ValidationError } from './validation-error';
@@ -49,22 +49,20 @@ export const SendMessageModal = () => {
     }, [isSuccess, setModalOpen]);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    useEffect(() => {
-        const timer =
-            isModalOpen && setTimeout(() => textAreaRef.current?.focus(), 55);
-        return () => {
-            if (timer) clearTimeout(timer);
-        };
-    }, [textAreaRef, isModalOpen]);
 
     useKeyUp(() => {
         setModalOpen(true);
     }, 'Enter');
 
+    const openHandler = useCallback(() => {
+        queueMicrotask(() => textAreaRef.current?.focus());
+    }, [textAreaRef]);
+
     return (
         <>
             <button onClick={() => setModalOpen(true)}>Send Message</button>
             <Modal
+                openHandler={openHandler}
                 head={<h3>Send Message</h3>}
                 body={
                     isFailed

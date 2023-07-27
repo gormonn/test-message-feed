@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 import { useUnit } from 'effector-react';
 import { animated, useChain, useSpring, useSpringRef } from 'react-spring';
 import { useKeyUp } from 'shared/lib/hooks/use-key-up';
@@ -21,23 +21,23 @@ export const Modal = forwardRef<
         model.$isModalOpen,
     ]);
 
-    const onRest = () => {
-        openHandler?.();
-    };
-
     const opacityRef = useSpringRef();
     const { opacity } = useSpring({
         ref: opacityRef,
         opacity: isModalOpen ? 1 : 0,
         precision: 0.0001,
         clamp: true,
-        onRest,
     });
 
     const displayRef = useSpringRef();
     const { display } = useSpring({
         ref: displayRef,
         display: isModalOpen ? 'flex' : 'none',
+        onRest: ({ value }) => {
+            if (value.display === 'flex') {
+                openHandler?.();
+            }
+        },
     });
 
     // todo: use mount/unmount instead of display:none
