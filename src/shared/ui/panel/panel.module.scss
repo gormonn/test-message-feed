@@ -1,0 +1,12 @@
+@use 'src/app/background' as bg;
+
+.panel{
+  border-radius: 1.5rem;
+  border: 1px solid bg.$dark;
+  background: bg.$primary;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

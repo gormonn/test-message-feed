@@ -79,51 +79,48 @@ export const SendMessageModal = () => {
     };
 
     return (
-        <>
-            <button onClick={openModal}>Send Message</button>
-            <Modal
-                openHandler={openHandler}
-                head={<h3>Send Message</h3>}
-                body={
-                    isFailed
-                        ? 'Something went wrong'
-                        : isModalOpen && (
-                              <>
-                                  <textarea
-                                      ref={textAreaRef}
-                                      className={clsx(style.textArea, {
-                                          [style.error]: !isValid,
-                                      })}
-                                      onChange={inputHandler}
-                                      onKeyDownCapture={onKeyDownCapture}
-                                      value={text}
-                                  />
-                                  <ValidationError isValid={isValid} />
-                              </>
-                          )
-                }
-                footer={
-                    <>
-                        <button
-                            disabled={!isValid || !isInit || isEmpty}
-                            onClick={send}
-                        >
-                            {isInit && 'Send'}
-                            {isPending && 'Sending...'}
-                            {isSuccess && 'Done!'}
-                            {isFailed && 'Failed!'}
-                        </button>
-                        <span
-                            className={clsx(style.counter, {
-                                [style.error]: !isValid,
-                            })}
-                        >
-                            {text.length}/{MAX_LEN}
-                        </span>
-                        <button onClick={clear}>Clear</button>
-                    </>
-                }
-            />
-        </>
+        <Modal
+            openHandler={openHandler}
+            head={<h3>Send Message</h3>}
+            body={
+                isFailed
+                    ? 'Something went wrong'
+                    : isModalOpen && (
+                          <>
+                              <textarea
+                                  ref={textAreaRef}
+                                  className={clsx(style.textArea, {
+                                      [style.error]: !isValid,
+                                  })}
+                                  onChange={inputHandler}
+                                  onKeyDownCapture={onKeyDownCapture}
+                                  value={text}
+                              />
+                              <ValidationError isValid={isValid} />
+                          </>
+                      )
+            }
+            footer={
+                <>
+                    <button
+                        disabled={!isValid || !isInit || isEmpty}
+                        onClick={send}
+                    >
+                        {isInit && 'Send'}
+                        {isPending && 'Sending...'}
+                        {isSuccess && 'Done!'}
+                        {isFailed && 'Failed!'}
+                    </button>
+                    <span
+                        className={clsx(style.counter, {
+                            [style.error]: !isValid,
+                        })}
+                    >
+                        {text.length}/{MAX_LEN}
+                    </span>
+                    <button onClick={clear}>Clear</button>
+                </>
+            }
+        />
     );
 };

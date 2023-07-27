@@ -1,0 +1,20 @@
+@use 'src/app/background' as bg;
+
+.filter{
+  flex-grow: 1;
+  .heading{
+    margin: 0;
+  }
+  .filters{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    .label{
+      display: flex;
+      flex-direction: column;
+      .input{
+        height: 1.5rem;
+      }
+    }
+  }
+}

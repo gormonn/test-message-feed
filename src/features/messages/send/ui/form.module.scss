@@ -1,5 +1,9 @@
 @use 'src/app/background' as bg;
 
+.btn{
+  margin: 1rem;
+}
+
 .modal{
   position: fixed;
   width: 100vw;

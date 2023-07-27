@@ -1,0 +1,11 @@
+.page{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+ .wrap{
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    width: 100%;
+  }
+}

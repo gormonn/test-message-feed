@@ -42,17 +42,26 @@ Roadmap:
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
-  - [ ] Add Skeleton loading animation
+  - [x] Add Skeleton loading animation
   - [ ] Add aria?
-  - [ ] Add cheat-sheet with keyboard shortcuts 
   - [ ] Use mount/unmount instead of display:none in Modal 
 - [ ] Build optimizations
   - [ ] css & js minimize
 
-- Known Bugs:
+# Additional Features
+## Common
+- [ ] Add cheat-sheet with keyboard shortcuts
+## User
+- [ ] Edit User Data
+## Feed
+- [ ] Add debounce / cancellation to load users/avatars while scrolling
+- [ ] Press Ctrl + F to focus on Text Filter
+
+# Known Bugs:
   * [ ] Twice rendering http://localhost:5173/profile/:id
+  * [ ] Escape from modal doesn't work
   - [ ] Reset feed mock data on route
-  - [ ] On change feedCount and reload, smooth scroll down. It will be loaded on down;
+  - [ ] On change feedCount and reload page -> smooth scroll down.
   - UserAvatar / UserFullName:
     - [ ] Bad skeletons layout
     - [ ] Refactoring skeletons like that:
@@ -60,26 +69,28 @@ Roadmap:
         <img/>
         {isLoading && <Skeleton/>}
       ```
-    - [ ] Add debounce / cancellation to load users/avatars while scrolling
 
-- Tech Debt:
+# Tech Debt:
   - [ ] Add stable mocks for testing purposes (e.g. user profile page)
   - [ ] User cache control (need to choose a strategy)
   - [ ] Use contenteditable instead of textarea (to use stickers)
-  - [ ] Sending / Delivered / Seen / Error
+  - [ ] Add message state: Pending / Delivered / Seen / Error
 
-Comments:
-- type FeedMessage have userId field instead of userFullName / userAvatar fields:
+# Comments:
+
+## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
   - It can depends on API design
   - Pros:
     - Light version of the message
   - Cons:
     - Additional delay when first loading a user
     - Need to manage user cache
-- I request all messages at once:
+    
+## Request all messages at once:
   - It's a bad practice in real life, when the feed is big
   - So in real life, we need to request messages in parts (by date, page/limit/offset, etc.)
-- I use REST API instead of WS or SSE:
+
+# Using REST API instead of WS or SSE:
   - In real life, we need to communicate in real time, but task is very abstract by requirements
 
 # React + TypeScript + Vite

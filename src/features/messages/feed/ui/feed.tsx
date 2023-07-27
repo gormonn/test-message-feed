@@ -1,4 +1,10 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import {
+    ComponentPropsWithoutRef,
+    FC,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import { animated, useSpring } from 'react-spring';
 import { EffectState } from 'patronum/status';
@@ -8,11 +14,14 @@ import { FeedMessage } from 'shared/lib/types';
 import { Message } from './message';
 import styles from './feed.module.scss';
 import '../model';
+import clsx from 'clsx';
 
-export const Feed: FC<{
-    data: Array<FeedMessage>;
-    status: EffectState;
-}> = ({ data, status }) => {
+export const Feed: FC<
+    {
+        data: Array<FeedMessage>;
+        status: EffectState;
+    } & ComponentPropsWithoutRef<'div'>
+> = ({ data, status, className, ...divProps }) => {
     const [atBottom, setAtBottom] = useState(true);
     const [currentUser] = useUnit([usersModel.$currentUser]);
 
@@ -45,7 +54,7 @@ export const Feed: FC<{
     }, [virtuosoRef, data.length]);
 
     return (
-        <div className={styles.container}>
+        <div className={clsx(styles.container, className)} {...divProps}>
             {isLoading && <div className={styles.loading}>Loading...</div>}
             {isReady && isEmpty ? (
                 <>Empty...</>
