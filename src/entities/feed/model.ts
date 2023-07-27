@@ -1,10 +1,11 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { createGate } from 'effector-react';
-import { pending, status } from 'patronum';
-import { api } from 'shared/api';
+import { status } from 'patronum';
+import { api, FeedFilterPayload } from 'shared/api';
 import { FeedMessage } from 'shared/lib/types';
 
 const load = createGate();
+
 const getFeed = createEvent();
 const getFeedFx = createEffect(async () => {
     const { data } = await api.feed.get();
@@ -28,17 +29,38 @@ sample({
     target: $feed,
 });
 
-const $isLoading = pending({
-    effects: [getFeedFx],
-    of: 'every',
+const $getFeedStatus = status({ effect: getFeedFx });
+
+const getFilteredFeed = createEvent<FeedFilterPayload>();
+const getFilteredFeedFx = createEffect(
+    async (filterParams: FeedFilterPayload) => {
+        const { data } = await api.feed.filter(filterParams);
+        return data;
+    },
+);
+
+const $filteredFeed = createStore<FeedMessage[]>([]);
+
+sample({
+    clock: getFilteredFeed,
+    target: getFilteredFeedFx,
 });
 
-const $getFeedStatus = status({ effect: getFeedFx });
+sample({
+    clock: getFilteredFeedFx.doneData,
+    target: $filteredFeed,
+});
+
+const $getFilteredFeedStatus = status({ effect: getFilteredFeedFx });
 
 export const model = {
     load,
+
     getFeed,
     $feed,
-    $isLoading,
     $getFeedStatus,
+
+    getFilteredFeed,
+    $filteredFeed,
+    $getFilteredFeedStatus,
 };

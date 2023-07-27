@@ -1,23 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import { animated, useSpring } from 'react-spring';
-import { useGate, useUnit } from 'effector-react';
-import { feedModel } from 'entities/feed';
+import { EffectState } from 'patronum/status';
+import { useUnit } from 'effector-react';
 import { usersModel } from 'entities/users';
+import { FeedMessage } from 'shared/lib/types';
 import { Message } from './message';
 import styles from './feed.module.scss';
 import '../model';
 
-export const Feed = () => {
-    useGate(feedModel.load);
-    useGate(usersModel.loadMe);
-
+export const Feed: FC<{
+    data: Array<FeedMessage>;
+    status: EffectState;
+}> = ({ data, status }) => {
     const [atBottom, setAtBottom] = useState(true);
-    const [feed, status, currentUser] = useUnit([
-        feedModel.$feed,
-        feedModel.$getFeedStatus,
-        usersModel.$currentUser,
-    ]);
+    const [currentUser] = useUnit([usersModel.$currentUser]);
 
     const spring = useSpring({
         from: {
@@ -33,19 +30,19 @@ export const Feed = () => {
 
     const isLoading = status === 'initial' || status === 'pending';
     const isReady = status === 'done' || status === 'fail';
-    const isEmpty = feed.length === 0;
+    const isEmpty = data.length === 0;
 
     useEffect(() => {
         // todo: если atBottom === false - то нужно отобразить значок того, что новое сообщение?
         // todo#bug: срабатывает через раз
         queueMicrotask(() => {
             virtuosoRef?.current?.scrollToIndex({
-                index: feed.length - 1,
+                index: data.length - 1,
                 behavior: 'smooth',
                 align: 'start',
             });
         });
-    }, [virtuosoRef, feed.length]);
+    }, [virtuosoRef, data.length]);
 
     return (
         <div className={styles.container}>
@@ -56,19 +53,19 @@ export const Feed = () => {
                 <Virtuoso
                     ref={virtuosoRef}
                     className={styles.feed}
-                    initialTopMostItemIndex={feed.length - 1}
-                    totalCount={feed.length}
+                    initialTopMostItemIndex={data.length - 1}
+                    totalCount={data.length}
                     alignToBottom
                     atBottomThreshold={800}
                     atBottomStateChange={setAtBottom}
                     itemContent={(index) => (
                         <Message
-                            key={feed[index].id}
-                            userId={feed[index].userId}
-                            text={feed[index].text}
-                            date={feed[index].date}
-                            isMy={currentUser?.id === feed[index].userId}
-                            prevDate={feed[index - 1]?.date}
+                            key={data[index].id}
+                            userId={data[index].userId}
+                            text={data[index].text}
+                            date={data[index].date}
+                            isMy={currentUser?.id === data[index].userId}
+                            prevDate={data[index - 1]?.date}
                         />
                     )}
                 />
@@ -79,7 +76,7 @@ export const Feed = () => {
                     style={spring}
                     onClick={() =>
                         virtuosoRef?.current?.scrollToIndex({
-                            index: feed.length - 1,
+                            index: data.length - 1,
                             behavior: 'smooth',
                         })
                     }

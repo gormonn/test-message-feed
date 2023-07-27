@@ -5,6 +5,6 @@ import { ProfilePage } from 'pages/profile';
 export const AppRoutes = () => (
     <Routes>
         <Route path="/" element={<PageFeed />} />
-        <Route path="/user/:id" element={<ProfilePage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
     </Routes>
 );

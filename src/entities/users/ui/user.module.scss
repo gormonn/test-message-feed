@@ -1,0 +1,25 @@
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+
+  .avatarContainer{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+
+    .avatar {
+      width: 100%;
+      height:  100%;
+      opacity: 0;
+      transition: opacity 300ms;
+
+      &.ready {
+        opacity: 1;
+      }
+    }
+  }
+}

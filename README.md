@@ -28,16 +28,17 @@ Roadmap:
   - [x] Handle ESC/ENTER key press
   - [x] Add keyboard shortcuts
   - [x] Fix line break of messages
-- [ ] UserInfo with user's messages
+- [x] UserInfo with user's messages
   - [x] Add router
-  - [ ] Add layout with user's info
-  - [ ] Add model for get messages by user
+  - [x] Add layout with user's info and filtered feed
 - [ ] Filtration
   - [ ] Add filter UI by text and user
   - [ ] Add filter logic to model
   - [ ] Add highlight wrapper to texts
   - [ ] Resolve AND/OR problems
     - [ ] Mb discuss this later
+  - [ ] Add additional filters to UserInfo page
+  
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
@@ -49,14 +50,17 @@ Roadmap:
   - [ ] css & js minimize
 
 - Known Bugs:
+  * [ ] Twice rendering http://localhost:5173/profile/:id
   - [ ] Reset feed mock data on route
   - [ ] On change feedCount and reload, smooth scroll down. It will be loaded on down;
-  - [ ] Bad skeletons layout
-  - [ ] Refactoring skeletons like that:
-    ```javascript lines
-      <img/>
-      {isLoading && <Skeleton/>}
-    ```
+  - UserAvatar / UserFullName:
+    - [ ] Bad skeletons layout
+    - [ ] Refactoring skeletons like that:
+      ```javascript lines
+        <img/>
+        {isLoading && <Skeleton/>}
+      ```
+    - [ ] Add debounce / cancellation to load users/avatars while scrolling
 
 - Tech Debt:
   - [ ] Add stable mocks for testing purposes (e.g. user profile page)

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useGate } from 'effector-react';
+import clsx from 'clsx';
 import { isSameDay } from 'date-fns/esm/fp';
 import { usersModel } from 'entities/users';
 import { FeedMessage } from 'shared/lib/types';
 import { getISODay, getISOTime } from 'shared/lib/date';
 import { UserLink } from './user-link';
 import styles from './message.module.scss';
-import clsx from 'clsx';
 
 type MessageProps = Omit<FeedMessage, 'id'> & {
     prevDate: string;

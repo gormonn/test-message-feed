@@ -1,12 +1,9 @@
 import { axios } from 'shared/api/fake-server';
-// import { FeedMessage } from 'shared/lib/types';
 // import axios from 'axios';
 
 const users = {
     get: (userId: string) => axios.get(`/user/${userId}`),
-    // getMessages: (userId: string) => {},
     getMe: () => axios.get('/user/me'),
-    // getMyMessages: () => {},
 };
 
 export type FeedNewMessagePayload = {
