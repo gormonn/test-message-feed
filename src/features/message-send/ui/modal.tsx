@@ -1,27 +1,39 @@
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 import { useUnit } from 'effector-react';
 import { animated, useChain, useSpring, useSpringRef } from 'react-spring';
+import { useKeyUp } from 'shared/lib/hooks/use-key-up';
 import style from './form.module.scss';
 import { model } from '../model';
 
 type ModalProps = {
-    trigger: ReactNode;
     head: string | ReactNode;
     body: string | ReactNode;
     footer: string | ReactNode;
+    openHandler?: () => void;
 };
 
-export const Modal = ({ trigger, head, body, footer }: ModalProps) => {
+export const Modal = forwardRef<
+    HTMLDivElement,
+    ComponentPropsWithoutRef<'div'> & ModalProps
+>(({ head, body, footer, openHandler }, ref) => {
     const [setModalOpen, isModalOpen] = useUnit([
         model.setModalOpen,
         model.$isModalOpen,
     ]);
 
+    const onRest = () => {
+        openHandler?.();
+    };
+
     const opacityRef = useSpringRef();
     const { opacity } = useSpring({
         ref: opacityRef,
         opacity: isModalOpen ? 1 : 0,
+        precision: 0.0001,
+        clamp: true,
+        onRest,
     });
+
     const displayRef = useSpringRef();
     const { display } = useSpring({
         ref: displayRef,
@@ -37,26 +49,32 @@ export const Modal = ({ trigger, head, body, footer }: ModalProps) => {
         200,
     );
 
+    useKeyUp(() => {
+        setModalOpen(false);
+    });
+
     return (
-        <>
-            {trigger}
-            <animated.div className={style.modal} style={{ opacity, display }}>
-                <div
-                    className={style.overlay}
-                    onClick={() => setModalOpen(false)}
-                />
-                <div className={style.content}>
-                    <div className={style.head}>
-                        {head}
-                        <button
-                            className={style.close}
-                            onClick={() => setModalOpen(false)}
-                        />
-                    </div>
-                    <div className={style.body}>{body}</div>
-                    <div className={style.footer}>{footer}</div>
+        <animated.div
+            ref={ref}
+            className={style.modal}
+            style={{ opacity, display }}
+        >
+            <div
+                tabIndex={-1}
+                className={style.overlay}
+                onClick={() => setModalOpen(false)}
+            />
+            <div className={style.content}>
+                <div className={style.head}>
+                    {head}
+                    <button
+                        className={style.close}
+                        onClick={() => setModalOpen(false)}
+                    />
                 </div>
-            </animated.div>
-        </>
+                <div className={style.body}>{body}</div>
+                <div className={style.footer}>{footer}</div>
+            </div>
+        </animated.div>
     );
-};
+});

@@ -20,10 +20,12 @@ Roadmap:
   - [x] Virtual list
   - [x] Scroll from bottom
   - [x] "Go back" button
-- [ ] Add new message
+- [x] Add new message
   - [x] Add modal with textarea and symbols count checker 
   - [x] API method (done)
-  - [ ] Update chat
+  - [x] Optimistic Update chat on message
+  - [x] Auto focus input 
+  - [x] Handle ESC/ENTER key press
 - [ ] UserInfo with user's messages
   - [ ] Add layout with user's info
   - [ ] Add model for get messages by user
@@ -34,6 +36,7 @@ Roadmap:
   - [ ] Resolve AND/OR problems
     - [ ] Mb discuss this later
 - [ ] Beautify and tech debt
+  - [ ] Add aria?
 - [ ] Build optimizations
   - [ ] css & js minimize
  

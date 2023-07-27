@@ -1,4 +1,4 @@
-import { axios } from 'shared/api/fake-client';
+import { axios } from 'shared/api/fake-server';
 // import { FeedMessage } from 'shared/lib/types';
 // import axios from 'axios';
 

@@ -1,18 +1,19 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
 import { ValidationError } from './validation-error';
+import { Modal } from './modal';
 import { MAX_LEN } from './lib';
 import style from './form.module.scss';
 import { model } from '../model';
-import { Modal } from 'features/message-send/ui/modal';
+import { useKeyUp } from 'shared/lib/hooks/use-key-up';
 
 // todo: предупредить о потере данных при попытке выйти из модалки
 export const SendMessageModal = () => {
-    const [setModalOpen, sendMessage, sendingStatus] = useUnit([
+    const [setModalOpen, sendingStatus, sendMessage, isModalOpen] = useUnit([
         model.setModalOpen,
-        model.sendMessage,
         model.$sendingStatus,
+        model.sendMessage,
         model.$isModalOpen,
     ]);
 
@@ -42,53 +43,68 @@ export const SendMessageModal = () => {
     useEffect(() => {
         if (isSuccess) {
             setModalOpen(false);
+            clear();
             // либо предложить "отправить еще"
         }
     }, [isSuccess, setModalOpen]);
 
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    useEffect(() => {
+        const timer =
+            isModalOpen && setTimeout(() => textAreaRef.current?.focus(), 55);
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [textAreaRef, isModalOpen]);
+
+    useKeyUp(() => {
+        setModalOpen(true);
+    }, 'Enter');
+
     return (
-        <Modal
-            trigger={
-                <button onClick={() => setModalOpen(true)}>Send Message</button>
-            }
-            head={<h3>Send Message</h3>}
-            body={
-                isFailed ? (
-                    'Something went wrong'
-                ) : (
+        <>
+            <button onClick={() => setModalOpen(true)}>Send Message</button>
+            <Modal
+                head={<h3>Send Message</h3>}
+                body={
+                    isFailed
+                        ? 'Something went wrong'
+                        : isModalOpen && (
+                              <>
+                                  <textarea
+                                      ref={textAreaRef}
+                                      className={clsx(style.textArea, {
+                                          [style.error]: !isValid,
+                                      })}
+                                      onChange={inputHandler}
+                                      value={text}
+                                  />
+                                  <ValidationError isValid={isValid} />
+                              </>
+                          )
+                }
+                footer={
                     <>
-                        <textarea
-                            className={clsx(style.textArea, {
+                        <button
+                            disabled={!isValid || !isInit || text.length === 0}
+                            onClick={send}
+                        >
+                            {isInit && 'Send'}
+                            {isPending && 'Sending...'}
+                            {isSuccess && 'Done!'}
+                            {isFailed && 'Failed!'}
+                        </button>
+                        <span
+                            className={clsx(style.counter, {
                                 [style.error]: !isValid,
                             })}
-                            onChange={inputHandler}
-                            value={text}
-                        />
-                        <ValidationError isValid={isValid} />
+                        >
+                            {text.length}/{MAX_LEN}
+                        </span>
+                        <button onClick={clear}>Clear</button>
                     </>
-                )
-            }
-            footer={
-                <>
-                    <button
-                        disabled={!isValid || !isInit || text.length === 0}
-                        onClick={send}
-                    >
-                        {isInit && 'Send'}
-                        {isPending && 'Sending...'}
-                        {isSuccess && 'Done!'}
-                        {isFailed && 'Failed!'}
-                    </button>
-                    <span
-                        className={clsx(style.counter, {
-                            [style.error]: !isValid,
-                        })}
-                    >
-                        {text.length}/{MAX_LEN}
-                    </span>
-                    <button onClick={clear}>Clear</button>
-                </>
-            }
-        />
+                }
+            />
+        </>
     );
 };

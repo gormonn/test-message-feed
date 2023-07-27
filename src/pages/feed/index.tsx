@@ -1,27 +1,24 @@
+import { useEffect, useRef, useState } from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import { animated, useSpring } from 'react-spring';
-
 import { useGate, useUnit } from 'effector-react';
 import { feedModel } from 'entities/feed';
 import { Message } from 'features/feed/ui/message';
 import { usersModel } from 'entities/users';
 import styles from './ui/styles.module.scss';
-import { useRef, useState } from 'react';
+import './model';
 
 export const FeedPage = () => {
     useGate(feedModel.load);
     useGate(usersModel.loadMe);
 
+    const [atBottom, setAtBottom] = useState(true);
     const [feed, status, currentUser] = useUnit([
         feedModel.$feed,
-        feedModel.$status,
+        feedModel.$getFeedStatus,
         usersModel.$currentUser,
     ]);
-    const isLoading = status === 'initial' || status === 'pending';
-    const isReady = status === 'done' || status === 'fail';
-    const isEmpty = feed.length === 0;
 
-    const [atBottom, setAtBottom] = useState(true);
     const spring = useSpring({
         from: {
             opacity: 0,
@@ -33,6 +30,20 @@ export const FeedPage = () => {
     });
 
     const virtuosoRef = useRef<VirtuosoHandle>(null);
+
+    const isLoading = status === 'initial' || status === 'pending';
+    const isReady = status === 'done' || status === 'fail';
+    const isEmpty = feed.length === 0;
+
+    useEffect(() => {
+        // todo: если atBottom === false - то нужно отобразить значок того, что новое сообщение?
+        // todo#bug: срабатывает через раз
+        virtuosoRef?.current?.scrollToIndex({
+            index: feed.length - 1,
+            behavior: 'smooth',
+            align: 'start',
+        });
+    }, [virtuosoRef, feed.length]);
 
     return (
         <div className={styles.container}>

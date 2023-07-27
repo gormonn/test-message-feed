@@ -1,1 +1,2 @@
-export { SendMessageModal } from 'features/message-send/ui/send-message-modal';
+export { SendMessageModal } from './ui/send-message-modal';
+export { model as messageSendModel } from './model';

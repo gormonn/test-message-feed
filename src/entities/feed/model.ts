@@ -10,6 +10,7 @@ const getFeedFx = createEffect(async () => {
     const { data } = await api.feed.get();
     return data;
 });
+
 const $feed = createStore<FeedMessage[]>([]);
 
 sample({
@@ -31,12 +32,13 @@ const $isLoading = pending({
     effects: [getFeedFx],
     of: 'every',
 });
-const $status = status({ effect: getFeedFx });
+
+const $getFeedStatus = status({ effect: getFeedFx });
 
 export const model = {
     load,
     getFeed,
     $feed,
     $isLoading,
-    $status,
+    $getFeedStatus,
 };

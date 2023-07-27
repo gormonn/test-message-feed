@@ -1,9 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { createFakeData, createMessage } from './fake-data';
+import { fakerConfig } from 'app/faker.config';
 import { FeedFilterPayload } from 'shared/api/index';
 import { getRandomUser, matchText, matchUser } from 'shared/api/lib';
-import { fakerConfig } from 'app/faker.config';
+import { createFakeData, createMessage } from './fake-data';
 
 const fakeInstance = new MockAdapter(axios, { delayResponse: 300 });
 
@@ -48,8 +48,9 @@ fakeInstance.onGet('/feed').reply((config) => {
 fakeInstance.onPost('/feed').reply((config) => {
     try {
         if (config.data) {
+            // console.log(config.data, 'config.data');
             const newMessage = createMessage({
-                text: config.data.text,
+                text: JSON.parse(config.data).text,
                 date: new Date().toISOString(),
                 userId: currentUser.id,
             });
