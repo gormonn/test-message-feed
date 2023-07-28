@@ -9,7 +9,7 @@ module.exports = {
     "import",
     "prettier",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  ignorePatterns: ["dist", "*.config.js", "*.config.ts", "*.cjs"],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",

@@ -28,7 +28,7 @@ function getMockLocalStorage(stable = true): FakeFeedReturn {
 }
 
 // function getMockIndexedDb() {
-//     // do nothing
+//     const req = indexedDB.open(DEFAULT_MOCK_KEY);
 // }
 
 const { users, feed } = getMockLocalStorage(true);

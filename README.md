@@ -56,6 +56,8 @@ Roadmap:
 ## Feed
 - [ ] Add debounce / cancellation to load users/avatars while scrolling
 - [x] Press Ctrl + F to focus on Text Filter
+## Filter
+- [ ] Save filters (persist)
 
 
 ## Profile Routing
