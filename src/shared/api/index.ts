@@ -1,17 +1,18 @@
-import { axios } from 'shared/api/fake-server';
+import { axios } from 'shared/api/fake-api';
+import { Nullable, User, UserMeta } from 'shared/lib/types';
 // import axios from 'axios';
 
 const users = {
-    get: (userId: string) => axios.get(`/user/${userId}`),
-    getMe: () => axios.get('/user/me'),
+    get: (userId: string) => axios.get<User>(`/users/${userId}`),
+    getMe: () => axios.get<User>('/users/me'),
+    find: (str: string) => axios.get<UserMeta[]>(`/users-meta/${str}`),
 };
 
 export type FeedNewMessagePayload = {
     text: string;
 };
 export type FeedFilterPayload = {
-    // users?: Nullable<string[]>; // todo#: не забыть сделать много-выбор
-    users?: string;
+    users?: Nullable<string[]>;
     search?: string;
     and?: boolean;
 };

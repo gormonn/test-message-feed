@@ -32,8 +32,8 @@ Roadmap:
   - [x] Add router
   - [x] Add layout with user's info and filtered feed
 - [ ] Filtration
-  - [ ] Add filter UI by text and user
-  - [ ] Add filter logic to model
+  - [x] Add filter UI by text and user
+  - [x] Add filter logic to model
   - [ ] Add highlight wrapper to texts
   - [ ] Resolve AND/OR problems
     - [ ] Mb discuss this later
@@ -58,6 +58,7 @@ Roadmap:
 - [ ] Press Ctrl + F to focus on Text Filter
 
 # Known Bugs:
+  - [ ] Resize with open user filter bug (fix or use floating-ui)
   * [ ] Flickering / Scrolling on filter
   * [ ] Twice rendering http://localhost:5173/profile/:id
   * [ ] Escape from modal doesn't work
@@ -72,6 +73,7 @@ Roadmap:
       ```
 
 # Tech Debt:
+  - [ ] https://www.w3.org/WAI/ARIA/apg/#dialog_modal
   - [ ] Add stable mocks for testing purposes (e.g. user profile page)
   - [ ] User cache control (need to choose a strategy)
   - [ ] Use contenteditable instead of textarea (to use stickers)

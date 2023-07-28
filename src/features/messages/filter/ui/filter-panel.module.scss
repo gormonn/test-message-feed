@@ -5,20 +5,45 @@
   .heading{
     margin: 0;
   }
+  .col{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .row{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem
+  }
   .filters{
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    .label{
-      display: flex;
-      flex-direction: column;
-      .input{
-        height: 1.5rem;
-      }
-      .radio{
+    justify-content: space-between;
+    .input{
+      height: 1.5rem;
+    }
+    .radio_group {
+      margin-top: .25rem;
+      .radio {
         display: flex;
         gap: .25rem;
       }
+    }
+  }
+}
+
+.users{
+  .user{
+    background: bg.$secondary;
+    padding: .25rem;
+    box-sizing: border-box;
+    border: 1px solid bg.$dark;
+    cursor: pointer;
+    text-overflow: clip;
+    overflow: hidden;
+    &:hover{
+      background: bg.$primary;
     }
   }
 }

@@ -8,6 +8,8 @@ export type User = {
     avatar: Nullable<string>;
 };
 
+export type UserMeta = Pick<User, 'id' | 'firstName' | 'lastName'>;
+
 export type FeedMessage = {
     id: string;
     date: string;

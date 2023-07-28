@@ -10,8 +10,30 @@ const fakeInstance = new MockAdapter(axios, { delayResponse: RESPONSE_DELAY });
 const { users, feed } = createFakeData(fakerConfig);
 const currentUser = getRandomUser(users);
 
-fakeInstance.onGet('/user/me').reply(200, currentUser);
-fakeInstance.onGet(new RegExp(`/user/*`)).reply((config) => {
+fakeInstance.onGet('/users/me').reply(200, currentUser);
+
+fakeInstance.onGet(new RegExp(`/users-meta/*`)).reply((config) => {
+    const string = config?.url?.split('/')?.[2].toLowerCase();
+    if (string) {
+        return [
+            200,
+            users
+                .filter((user) =>
+                    `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`.includes(
+                        string,
+                    ),
+                )
+                .map(({ id, firstName, lastName }) => ({
+                    id,
+                    firstName,
+                    lastName,
+                })),
+        ];
+    }
+    return [500];
+});
+
+fakeInstance.onGet(new RegExp(`/users/*`)).reply((config) => {
     const userId = config?.url?.split('/')?.[2];
     const user = users.find((user) => user.id === userId);
     if (userId) {
