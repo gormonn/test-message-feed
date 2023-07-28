@@ -64,6 +64,7 @@ export const SendMessageModal = () => {
 
     useHotkeys(shortcutsKeys.openMessageForm, openModal, {
         enabled: !isModalOpen,
+        ignoredElementWhitelist: ['INPUT'],
     });
 
     useHotkeys(shortcutsKeys.sendMessage, send, {

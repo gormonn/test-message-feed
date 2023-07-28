@@ -8,17 +8,17 @@ import css from './filter-panel.module.scss';
 
 export const UsersFilter = () => {
     const [
-        setUsersFilter,
+        setUsersToFind,
         selectUser,
-        usersFilter,
+        usersToFind,
         foundUsersView,
         openFoundUsers,
         closeFoundUsers,
         isOpenFoundUsers,
     ] = useUnit([
-        model.setUsersFilter,
+        model.setUsersToFind,
         model.selectUser,
-        model.$usersFilter,
+        model.$usersToFind,
         model.$foundUsersView,
         model.openFoundUsers,
         model.closeFoundUsers,
@@ -46,34 +46,35 @@ export const UsersFilter = () => {
                 ref={inputRef}
                 className={css.input}
                 type="text"
-                onChange={(e) => setUsersFilter(e.target.value)}
-                value={usersFilter}
+                onChange={(e) => setUsersToFind(e.target.value)}
+                value={usersToFind}
                 onFocus={openFoundUsers}
             />
-            {createPortal(
-                <animated.div
-                    ref={selectRef}
-                    className={css.users}
-                    style={{
-                        opacity,
-                        position: 'absolute',
-                        top: rect ? rect.top + rect.height : 'unset',
-                        left: rect ? rect.left : 'unset',
-                        width: rect?.width,
-                    }}
-                >
-                    {foundUsersView.map((item) => (
-                        <div
-                            key={item.id}
-                            className={css.user}
-                            onClick={() => selectUser(item)}
-                        >
-                            {item.firstName} {item.lastName}
-                        </div>
-                    ))}
-                </animated.div>,
-                document.body,
-            )}
+            {isOpenFoundUsers &&
+                createPortal(
+                    <animated.div
+                        ref={selectRef}
+                        className={css.users}
+                        style={{
+                            opacity,
+                            position: 'absolute',
+                            top: rect ? rect.top + rect.height : 'unset',
+                            left: rect ? rect.left : 'unset',
+                            width: rect?.width,
+                        }}
+                    >
+                        {foundUsersView.map((item) => (
+                            <div
+                                key={item.id}
+                                className={css.user}
+                                onClick={() => selectUser(item)}
+                            >
+                                {item.firstName} {item.lastName}
+                            </div>
+                        ))}
+                    </animated.div>,
+                    document.body,
+                )}
         </>
     );
 };

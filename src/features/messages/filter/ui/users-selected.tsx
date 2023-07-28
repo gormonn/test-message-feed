@@ -8,15 +8,16 @@ export const UsersSelected = () => {
         model.$selectedUsersView,
     ]);
 
-    return (
+    return selectedUsers.length ? (
         <div className={css.col}>
-            Filter by users:
+            Filter by Users:
             <div
                 className={css.users}
                 style={{ overflow: 'auto', maxHeight: 104, width: 200 }}
             >
                 {selectedUsers.map((user) => (
                     <div
+                        key={user.id}
                         className={css.user}
                         onClick={() => removeUser(user.id)}
                     >
@@ -25,5 +26,5 @@ export const UsersSelected = () => {
                 ))}
             </div>
         </div>
-    );
+    ) : null;
 };

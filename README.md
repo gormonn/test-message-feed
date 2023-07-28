@@ -36,7 +36,7 @@ Roadmap:
   - [x] Add filter logic to model
   - [x] Resolve AND/OR problems
   - [ ] Add highlight wrapper to texts
-  - [ ] Add additional filters to UserInfo page
+  - [x] Add additional filters to UserInfo page
   
 - [ ] Beautify and tech debt
   - [ ] Fix time format
@@ -54,7 +54,13 @@ Roadmap:
 - [ ] Edit User Data
 ## Feed
 - [ ] Add debounce / cancellation to load users/avatars while scrolling
-- [ ] Press Ctrl + F to focus on Text Filter
+- [x] Press Ctrl + F to focus on Text Filter
+
+
+## Profile Routing
+Since mocks are generated on the fly, you can's open the same profile after reload page.
+For thar purpose:
+- [ ] Add stable mocks for testing purposes (e.g. user profile page)
 
 # Known Bugs:
   - [ ] Resize with open user filter bug (fix or use floating-ui)

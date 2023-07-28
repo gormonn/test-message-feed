@@ -7,9 +7,10 @@ import {
     sample,
 } from 'effector';
 import { debounce, reset, spread } from 'patronum';
+import { createGate } from 'effector-react';
 import { feedModel } from 'entities/feed';
-import { api } from 'shared/api';
-import { UserMeta } from 'shared/lib/types';
+import { api, FeedFilterPayload } from 'shared/api';
+import { Nullable, UserMeta } from 'shared/lib/types';
 
 const setAnd = createEvent<boolean>();
 const $isAnd = restore(setAnd, true);
@@ -19,19 +20,17 @@ const setTextFilter = createEvent<string>();
 const $textFilter = restore(setTextFilter, '');
 const $textFilterDeb = createStore('');
 
-// todo: множественный выбор
-// const setUsersFilter = createEvent<Nullable<string[]>>();
-// const $usersFilter = createStore<Nullable<string[]>>(null);
-const setUsersFilter = createEvent<string>();
-const $usersFilter = restore<string>(setUsersFilter, '');
-const $usersFilterDeb = createStore<string>('');
+const setUsersToFind = createEvent<string>();
+const $usersToFind = restore<string>(setUsersToFind, '');
+const $usersToFindDeb = createStore<string>('');
 
-sample({ clock: setUsersFilter, target: $usersFilter });
+//todo: remove
+sample({ clock: setUsersToFind, target: $usersToFind });
 
 const timeout = 300;
 debounce({ source: $isAnd, timeout, target: $isAndDeb });
 debounce({ source: $textFilter, timeout, target: $textFilterDeb });
-debounce({ source: $usersFilter, timeout, target: $usersFilterDeb });
+debounce({ source: $usersToFind, timeout, target: $usersToFindDeb });
 
 const findUsers = createEvent<string>();
 const findUsersFx = createEffect(async (str: string) => {
@@ -110,7 +109,7 @@ sample({
     target: $foundUsersView,
 });
 
-sample({ source: $usersFilterDeb, filter: Boolean, target: findUsers });
+sample({ source: $usersToFindDeb, filter: Boolean, target: findUsers });
 sample({ clock: findUsers, target: findUsersFx });
 sample({
     clock: findUsersFx.doneData,
@@ -124,7 +123,7 @@ sample({
 });
 
 sample({
-    source: $usersFilterDeb,
+    source: $usersToFindDeb,
     filter: (val) => !val,
     target: resetFoundUsers,
 });
@@ -134,28 +133,46 @@ reset({
     target: $foundUsers,
 });
 
+const filtersDefault = createGate<Nullable<FeedFilterPayload>>();
+const $defaultFilter = createStore<Nullable<FeedFilterPayload>>(null);
+
+sample({
+    clock: filtersDefault.open,
+    target: $defaultFilter,
+});
+
 const $filters = combine(
+    $defaultFilter,
     $isAndDeb,
     $textFilterDeb,
     $selectedUsersIds,
-    (and, search, usersSet) => {
+    (defaultFilter, and, search, usersSet) => {
+        console.log(defaultFilter, 'defaultFilter');
+
         const users = Array.from(usersSet);
         if (!search && !users?.length) {
             return null;
         }
         if (search && users?.length) {
             return {
-                and,
                 search,
-                users,
+                and: defaultFilter?.and || and,
+                users: defaultFilter?.users || users,
             };
         }
+        if (search && defaultFilter?.users)
+            return {
+                search,
+                users: defaultFilter?.users,
+                and: defaultFilter?.and,
+            };
+
         if (search) return { search };
-        return { users };
+        return { users: defaultFilter?.users || users };
     },
 );
 
-const $isNeedAnd = combine($textFilter, $usersFilter, (search, users) =>
+const $isNeedAnd = combine($textFilter, $usersToFind, (search, users) =>
     Boolean(search && users),
 );
 
@@ -172,10 +189,10 @@ reset({
     target: [
         $isAnd,
         $textFilter,
-        $usersFilter,
+        $usersToFind,
         $isAndDeb,
         $textFilterDeb,
-        $usersFilterDeb,
+        $usersToFindDeb,
         $foundUsers,
         $selectedUsersView,
         $selectedUsersIds,
@@ -191,8 +208,8 @@ export const model = {
     setTextFilter,
     $textFilter,
 
-    setUsersFilter,
-    $usersFilter,
+    setUsersToFind,
+    $usersToFind,
     $foundUsers,
     $foundUsersView,
 
@@ -205,6 +222,7 @@ export const model = {
     closeFoundUsers,
     $isOpenFoundUsers,
 
+    filtersDefault,
     $filters,
     resetFilters,
 };

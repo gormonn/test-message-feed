@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, FC, useRef } from 'react';
-import { useUnit } from 'effector-react';
+import { useGate, useUnit } from 'effector-react';
 import clsx from 'clsx';
 import { Panel } from 'shared/ui/panel';
 import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
@@ -8,11 +8,15 @@ import { UsersFilter } from './users-filter';
 import { UsersSelected } from './users-selected';
 import { model } from '../model';
 import css from './filter-panel.module.scss';
+import { FeedFilterPayload } from 'shared/api';
 
-export const FilterPanel: FC<ComponentPropsWithoutRef<'div'>> = ({
-    className,
-    ...divProps
-}) => {
+export const FilterPanel: FC<
+    ComponentPropsWithoutRef<'div'> & {
+        defaultFilter?: FeedFilterPayload;
+    }
+> = ({ className, defaultFilter, ...divProps }) => {
+    useGate(model.filtersDefault, defaultFilter);
+
     const [
         isModalOpen,
         setTextFilter,
@@ -50,48 +54,54 @@ export const FilterPanel: FC<ComponentPropsWithoutRef<'div'>> = ({
         <Panel className={clsx(css.filter, className)} {...divProps}>
             <div className={css.filters}>
                 <div className={css.col}>
-                    <label className={css.col}>
-                        Search By Text:
-                        <input
-                            ref={searchRef}
-                            className={css.input}
-                            type="text"
-                            onChange={(e) =>
-                                setTextFilter(e.target.value.trim())
-                            }
-                            value={textFilter}
-                        />
-                    </label>
-                    <div className={clsx(css.row, css.radio_group)}>
-                        <label className={css.radio}>
+                    {defaultFilter?.search == undefined && (
+                        <label className={css.col}>
+                            Search By Text:
                             <input
-                                id="and"
-                                name="and"
-                                type="radio"
-                                value="true"
-                                checked={isAnd.toString() === 'true'}
-                                disabled={!isNeedAnd}
-                                onChange={() => setAnd(true)}
+                                ref={searchRef}
+                                className={css.input}
+                                type="text"
+                                onChange={(e) =>
+                                    setTextFilter(e.target.value.trim())
+                                }
+                                value={textFilter}
                             />
-                            AND
                         </label>
-                        <label className={css.radio}>
-                            <input
-                                id="or"
-                                name="and"
-                                type="radio"
-                                value="false"
-                                checked={isAnd.toString() === 'false'}
-                                disabled={!isNeedAnd}
-                                onChange={() => setAnd(false)}
-                            />
-                            OR
+                    )}
+                    {defaultFilter?.and == undefined && (
+                        <div className={clsx(css.row, css.radio_group)}>
+                            <label className={css.radio}>
+                                <input
+                                    id="and"
+                                    name="and"
+                                    type="radio"
+                                    value="true"
+                                    checked={isAnd.toString() === 'true'}
+                                    disabled={!isNeedAnd}
+                                    onChange={() => setAnd(true)}
+                                />
+                                AND
+                            </label>
+                            <label className={css.radio}>
+                                <input
+                                    id="or"
+                                    name="and"
+                                    type="radio"
+                                    value="false"
+                                    checked={isAnd.toString() === 'false'}
+                                    disabled={!isNeedAnd}
+                                    onChange={() => setAnd(false)}
+                                />
+                                OR
+                            </label>
+                        </div>
+                    )}
+                    {defaultFilter?.users == undefined && (
+                        <label className={css.col}>
+                            Filter By Users:
+                            <UsersFilter />
                         </label>
-                    </div>
-                    <label className={css.col}>
-                        Filter By Users:
-                        <UsersFilter />
-                    </label>
+                    )}
                 </div>
                 <UsersSelected />
                 <button onClick={resetFilters}>Reset</button>

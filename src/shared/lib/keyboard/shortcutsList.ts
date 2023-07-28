@@ -8,7 +8,7 @@ export const shortcutsList: ShortcutGetter = {
     openMessageForm: ['Meta', 'Enter'], // todo: meta on mac - Command, what key is this on windows?
     sendMessage: ['Enter'],
     close: ['Escape'],
-    search: ['Meta', 'F'],
+    search: ['Meta', 'Shift', 'F'],
 };
 
 export const shortcutsKeys: ShortcutGetter = new Proxy(shortcutsList, {
