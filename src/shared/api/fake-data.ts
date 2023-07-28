@@ -1,5 +1,5 @@
-import add from 'date-fns/add';
 import { Faker, en, base } from '@faker-js/faker';
+import add from 'date-fns/add';
 import { getRand, getRandomDuration, getRandomUser } from 'shared/api/lib';
 import { FeedMessage, User } from 'shared/lib/types';
 

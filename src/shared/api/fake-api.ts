@@ -4,6 +4,7 @@ import { fakerConfig, RESPONSE_DELAY } from 'app/faker.config';
 import { FeedFilterPayload } from 'shared/api/index';
 import { getRandomUser, matchText, matchUser } from 'shared/api/lib';
 import { createFakeData, createMessage } from './fake-data';
+// import { persist } from 'effector-storage/local';
 
 const fakeInstance = new MockAdapter(axios, { delayResponse: RESPONSE_DELAY });
 

@@ -37,16 +37,16 @@ Roadmap:
   - [x] Resolve AND/OR problems
   - [x] Add additional filters to UserInfo page
   - [ ] Add highlight wrapper to texts
-  
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
   - [ ] Add Skeleton loading animation
   - [ ] Add aria?
   - [ ] Use mount/unmount instead of display:none in Modal 
+  - [ ] DX lint imports
 - [ ] Build optimizations
   - [ ] css & js minimize
-
+ 
 # Additional Features
 ## Common
 - [ ] Add cheat-sheet with keyboard shortcuts
@@ -63,10 +63,9 @@ For thar purpose:
 - [ ] Add stable mocks for testing purposes (e.g. user profile page)
 
 # Known Bugs:
-  - [ ] Replacement on resize users filter list (fix or use floating-ui)
-  * [ ] Twice rendering http://localhost:5173/profile/:id
-  * [x] Escape keyPress on modal doesn't work 
-  - [ ] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter)
+  - [ ] List of users does not follow input when resized (fix or use floating UI)
+  * [ ] Twice rendering http://localhost:5173/profile/:id 
+  - [ ] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) Try @tanstack/react-virtual
   - UserAvatar / UserFullName:
     - [ ] Bad skeletons layout
     - [ ] Refactoring skeletons like that:
@@ -81,6 +80,7 @@ For thar purpose:
   - [ ] User cache control (need to choose a strategy)
   - [ ] Use contenteditable instead of textarea (to use stickers)
   - [ ] Add message state: Pending / Delivered / Seen / Error
+  - [ ] May be use some UI lib
 
 # Comments:
 
