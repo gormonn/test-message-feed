@@ -51,6 +51,7 @@ export const Modal = forwardRef<
 
     useHotkeys(shortcutsKeys.close, closeModal, {
         enabled: isModalOpen,
+        ignoredElementWhitelist: ['TEXTAREA'],
     });
 
     return (

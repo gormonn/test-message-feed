@@ -35,13 +35,13 @@ Roadmap:
   - [x] Add filter UI by text and user
   - [x] Add filter logic to model
   - [x] Resolve AND/OR problems
-  - [ ] Add highlight wrapper to texts
   - [x] Add additional filters to UserInfo page
+  - [ ] Add highlight wrapper to texts
   
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
-  - [x] Add Skeleton loading animation
+  - [ ] Add Skeleton loading animation
   - [ ] Add aria?
   - [ ] Use mount/unmount instead of display:none in Modal 
 - [ ] Build optimizations
@@ -63,12 +63,10 @@ For thar purpose:
 - [ ] Add stable mocks for testing purposes (e.g. user profile page)
 
 # Known Bugs:
-  - [ ] Resize with open user filter bug (fix or use floating-ui)
-  * [ ] Flickering / Scrolling on filter
+  - [ ] Replacement on resize users filter list (fix or use floating-ui)
   * [ ] Twice rendering http://localhost:5173/profile/:id
-  * [ ] Escape from modal doesn't work
-  - [ ] Reset feed mock data on route
-  - [ ] On change feedCount and reload page -> smooth scroll down.
+  * [x] Escape keyPress on modal doesn't work 
+  - [ ] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter)
   - UserAvatar / UserFullName:
     - [ ] Bad skeletons layout
     - [ ] Refactoring skeletons like that:
