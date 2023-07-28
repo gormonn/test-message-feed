@@ -58,6 +58,7 @@ Roadmap:
 - [ ] Press Ctrl + F to focus on Text Filter
 
 # Known Bugs:
+  * [ ] Flickering / Scrolling on filter
   * [ ] Twice rendering http://localhost:5173/profile/:id
   * [ ] Escape from modal doesn't work
   - [ ] Reset feed mock data on route

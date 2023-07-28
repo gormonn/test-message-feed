@@ -22,7 +22,7 @@ sample({
     target: $usersFilter,
 });
 
-const timeout = 600;
+const timeout = 300;
 debounce({ source: $isAnd, timeout, target: $isAndDeb });
 debounce({ source: $textFilter, timeout, target: $textFilterDeb });
 debounce({ source: $usersFilter, timeout, target: $usersFilterDeb });

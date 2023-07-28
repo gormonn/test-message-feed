@@ -7,21 +7,15 @@ import style from './feed-page.module.scss';
 import { Panel } from 'shared/ui/panel';
 
 export const PageFeed = () => {
-    const [openModal, feed, status, filteredFeed, filters] = useUnit([
-        messageSendModel.openModal,
-        feedModel.$feed,
-        feedModel.$getFeedStatus,
-        feedModel.$filteredFeed,
-        filterModel.$filters,
-    ]);
-
-    // useEffect(() => {
-    //     console.log(filters, 'filter');
-    // }, [filters]);
-    //
-    // useEffect(() => {
-    //     console.log(filteredFeed, 'filteredFeed');
-    // }, [filteredFeed]);
+    const [openModal, feed, status, filteredFeed, filteredStatus, filters] =
+        useUnit([
+            messageSendModel.openModal,
+            feedModel.$feed,
+            feedModel.$getFeedStatus,
+            feedModel.$filteredFeed,
+            feedModel.$getFilteredFeedStatus,
+            filterModel.$filters,
+        ]);
 
     return (
         <>
@@ -34,7 +28,10 @@ export const PageFeed = () => {
                         </button>
                     </Panel>
                 </div>
-                <Feed data={feed} status={status} />
+                <Feed
+                    data={filters ? filteredFeed : feed}
+                    status={filters ? filteredStatus : status}
+                />
             </div>
             <SendMessageModal />
         </>
