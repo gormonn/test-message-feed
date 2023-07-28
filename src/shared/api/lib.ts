@@ -25,4 +25,4 @@ export const matchUser = (
 ) => Boolean(users?.includes(userId));
 
 export const matchText = (search: string, messageText: string) =>
-    Boolean(search && messageText.toLowerCase().includes(search));
+    Boolean(search && messageText.toLowerCase().includes(search.toLowerCase()));

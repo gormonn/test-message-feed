@@ -31,12 +31,11 @@ Roadmap:
 - [x] UserInfo with user's messages
   - [x] Add router
   - [x] Add layout with user's info and filtered feed
-- [ ] Filtration
+- [x] Filtration
   - [x] Add filter UI by text and user
   - [x] Add filter logic to model
+  - [x] Resolve AND/OR problems
   - [ ] Add highlight wrapper to texts
-  - [ ] Resolve AND/OR problems
-    - [ ] Mb discuss this later
   - [ ] Add additional filters to UserInfo page
   
 - [ ] Beautify and tech debt

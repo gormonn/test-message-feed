@@ -50,17 +50,11 @@ fakeInstance.onGet('/feed').reply((config) => {
         const newFeed = feed.filter((message) => {
             const userFilter = matchUser(users, message.userId);
             const textFilter = matchText(search, message.text);
-            if (and && userFilter && textFilter) {
-                return true;
+            if (and) {
+                return userFilter && textFilter;
             } else {
-                if (userFilter) {
-                    return true;
-                }
-                if (textFilter) {
-                    return true;
-                }
+                return userFilter || textFilter;
             }
-            return false;
         });
         return [200, newFeed];
     }
