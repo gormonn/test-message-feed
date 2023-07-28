@@ -8,11 +8,11 @@ import React, {
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
 import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
-import { ValidationError } from './validation-error';
-import { Modal } from './modal';
-import { MAX_LEN } from './lib';
-import style from './form.module.scss';
 import { model } from '../model';
+import style from './form.module.scss';
+import { MAX_LEN } from './lib';
+import { Modal } from './modal';
+import { ValidationError } from './validation-error';
 
 // todo: предупредить о потере данных при попытке выйти из модалки
 export const SendMessageModal = () => {
@@ -82,7 +82,7 @@ export const SendMessageModal = () => {
     return (
         <Modal
             openHandler={openHandler}
-            head={<h3>Send Message</h3>}
+            head={<h3>New Message</h3>}
             body={
                 isFailed
                     ? 'Something went wrong'

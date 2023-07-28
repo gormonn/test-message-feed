@@ -66,6 +66,7 @@ export type FakeFeedConfig = {
     usersCount?: number;
 };
 export type FakeFeedReturn = {
+    uid: string;
     users: User[];
     feed: FeedMessage[];
 };
@@ -73,5 +74,6 @@ export type FakeFeedReturn = {
 export function createFakeData(config?: FakeFeedConfig): FakeFeedReturn {
     const users = getFakeUsers(config?.usersCount);
     const feed = getFakeMessages(users, config?.feedCount);
-    return { users, feed };
+    const uid = faker.string.uuid();
+    return { users, feed, uid };
 }

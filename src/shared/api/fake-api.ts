@@ -3,12 +3,35 @@ import MockAdapter from 'axios-mock-adapter';
 import { fakerConfig, RESPONSE_DELAY } from 'app/faker.config';
 import { FeedFilterPayload } from 'shared/api/index';
 import { getRandomUser, matchText, matchUser } from 'shared/api/lib';
-import { createFakeData, createMessage } from './fake-data';
+import { UserMeta } from 'shared/lib/types';
+import { createFakeData, createMessage, FakeFeedReturn } from './fake-data';
 // import { persist } from 'effector-storage/local';
 
 const fakeInstance = new MockAdapter(axios, { delayResponse: RESPONSE_DELAY });
+const DEFAULT_MOCK_KEY = 'default-mock';
 
-const { users, feed } = createFakeData(fakerConfig);
+function createMockAndSave(): FakeFeedReturn {
+    const mock = createFakeData(fakerConfig);
+    localStorage.setItem(DEFAULT_MOCK_KEY, JSON.stringify(mock));
+    return mock;
+}
+
+function getMockLocalStorage(stable = true): FakeFeedReturn {
+    if (!stable) return createFakeData(fakerConfig);
+
+    try {
+        const json = localStorage.getItem(DEFAULT_MOCK_KEY);
+        return json === null ? createMockAndSave() : JSON.parse(json);
+    } catch (e) {
+        return createMockAndSave();
+    }
+}
+
+// function getMockIndexedDb() {
+//     // do nothing
+// }
+
+const { users, feed } = getMockLocalStorage(true);
 const currentUser = getRandomUser(users);
 
 fakeInstance.onGet('/users/me').reply(200, currentUser);
@@ -28,7 +51,7 @@ fakeInstance.onGet(new RegExp(`/users-meta/*`)).reply((config) => {
                     id,
                     firstName,
                     lastName,
-                })),
+                })) as UserMeta[],
         ];
     }
     return [500];
