@@ -1,8 +1,8 @@
+import { status } from 'patronum';
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { createGate } from 'effector-react';
-import { status } from 'patronum';
-import { api, FeedFilterPayload } from 'shared/api';
-import { FeedMessage } from 'shared/lib/types';
+import { api } from 'shared/api';
+import { FeedFilterPayload, FeedMessage } from 'shared/lib/types';
 
 const load = createGate();
 

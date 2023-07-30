@@ -5,23 +5,28 @@ import {
     useRef,
     useState,
 } from 'react';
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import { animated, useSpring } from 'react-spring';
+import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+import clsx from 'clsx';
 import { EffectState } from 'patronum/status';
 import { useUnit } from 'effector-react';
 import { usersModel } from 'entities/users';
 import { FeedMessage } from 'shared/lib/types';
+import css from './feed.module.scss';
 import { Message } from './message';
-import styles from './feed.module.scss';
 import '../model';
-import clsx from 'clsx';
 
-export const Feed: FC<
-    {
-        data: Array<FeedMessage>;
-        status: EffectState;
-    } & ComponentPropsWithoutRef<'div'>
-> = ({ data, status, className, ...divProps }) => {
+type FeedProps = {
+    data: Array<FeedMessage>;
+    status: EffectState;
+} & ComponentPropsWithoutRef<'div'>;
+
+export const Feed: FC<FeedProps> = ({
+    data,
+    status,
+    className,
+    ...divProps
+}) => {
     const [atBottom, setAtBottom] = useState(true);
     const [currentUser] = useUnit([usersModel.$currentUser]);
 
@@ -42,26 +47,24 @@ export const Feed: FC<
     const isEmpty = data.length === 0;
 
     useEffect(() => {
-        // todo: если atBottom === false - то нужно отобразить значок того, что новое сообщение?
-        // todo#bug: срабатывает через раз
         queueMicrotask(() => {
             virtuosoRef?.current?.scrollToIndex({
                 index: data.length - 1,
-                behavior: 'smooth',
+                behavior: 'auto',
                 align: 'start',
             });
         });
     }, [virtuosoRef, data.length]);
 
     return (
-        <div className={clsx(styles.container, className)} {...divProps}>
-            {isLoading && <div className={styles.loading}>Loading...</div>}
+        <div className={clsx(css.container, className)} {...divProps}>
+            {isLoading && <div className={css.loading}>Loading...</div>}
             {isReady && isEmpty ? (
                 <>Empty...</>
             ) : (
                 <Virtuoso
                     ref={virtuosoRef}
-                    className={styles.feed}
+                    className={css.feed}
                     initialTopMostItemIndex={data.length - 1}
                     totalCount={data.length}
                     alignToBottom
@@ -81,7 +84,7 @@ export const Feed: FC<
             )}
             {isReady && !isEmpty && (
                 <animated.button
-                    className={styles.back}
+                    className={css.back}
                     style={spring}
                     onClick={() =>
                         virtuosoRef?.current?.scrollToIndex({

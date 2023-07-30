@@ -70,7 +70,7 @@ For thar purpose:
   - [x] currentUser still random
   - [ ] List of users does not follow input when resized (fix or use floating UI)
   * [ ] Twice rendering http://localhost:5173/profile/:id 
-  - [ ] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) Try @tanstack/react-virtual
+  - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) 
   - UserAvatar / UserFullName:
     - [ ] Bad skeletons layout
     - [ ] Refactoring skeletons like that:
