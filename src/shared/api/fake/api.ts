@@ -8,8 +8,8 @@ const fakeInstance = new MockAdapter(axios, { delayResponse: RESPONSE_DELAY });
 const provider = lsProvider;
 
 fakeInstance.onGet('/users/me').reply(provider.getMe);
+fakeInstance.onGet(new RegExp(`/users/meta/*`)).reply(provider.getUsersMeta);
 fakeInstance.onGet(new RegExp(`/users/*`)).reply(provider.getUsers);
-fakeInstance.onGet(new RegExp(`/users-meta/*`)).reply(provider.getUsersMeta);
 fakeInstance.onGet('/feed').reply(provider.getFeed);
 fakeInstance.onPost('/feed').reply(provider.postFeed);
 

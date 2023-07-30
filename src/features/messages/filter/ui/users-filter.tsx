@@ -1,24 +1,24 @@
-import { useUnit } from 'effector-react';
 import { useEffect, useRef, useState } from 'react';
-import { useSpring, animated } from 'react-spring';
 import { createPortal } from 'react-dom';
+import { useSpring, animated } from 'react-spring';
 import useOnClickOutside from 'use-onclickoutside';
+import { useUnit } from 'effector-react';
 import { model } from '../model';
 import css from './filter-panel.module.scss';
 
 export const UsersFilter = () => {
     const [
         setUsersToFind,
-        selectUser,
         usersToFind,
+        selectUser,
         foundUsersView,
         openFoundUsers,
         closeFoundUsers,
         isOpenFoundUsers,
     ] = useUnit([
         model.setUsersToFind,
-        model.selectUser,
         model.$usersToFind,
+        model.selectUser,
         model.$foundUsersView,
         model.openFoundUsers,
         model.closeFoundUsers,
@@ -42,14 +42,17 @@ export const UsersFilter = () => {
 
     return (
         <>
-            <input
-                ref={inputRef}
-                className={css.input}
-                type="text"
-                onChange={(e) => setUsersToFind(e.target.value)}
-                value={usersToFind}
-                onFocus={openFoundUsers}
-            />
+            <label className={css.col}>
+                Filter By Users:
+                <input
+                    ref={inputRef}
+                    className={css.input}
+                    type="text"
+                    onChange={(e) => setUsersToFind(e.target.value)}
+                    value={usersToFind}
+                    onFocus={openFoundUsers}
+                />
+            </label>
             {isOpenFoundUsers &&
                 createPortal(
                     <animated.div

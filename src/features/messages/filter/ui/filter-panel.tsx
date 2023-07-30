@@ -1,14 +1,14 @@
 import { ComponentPropsWithoutRef, FC, useRef } from 'react';
-import { useGate, useUnit } from 'effector-react';
 import clsx from 'clsx';
-import { Panel } from 'shared/ui/panel';
-import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
+import { useGate, useUnit } from 'effector-react';
 import { messageSendModel } from 'features/messages/send';
-import { UsersFilter } from './users-filter';
-import { UsersSelected } from './users-selected';
+import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
+import { FeedFilterPayload } from 'shared/lib/types';
+import { Panel } from 'shared/ui/panel';
 import { model } from '../model';
 import css from './filter-panel.module.scss';
-import { FeedFilterPayload } from 'shared/api';
+import { UsersFilter } from './users-filter';
+import { UsersSelected } from './users-selected';
 
 export const FilterPanel: FC<
     ComponentPropsWithoutRef<'div'> & {
@@ -96,12 +96,7 @@ export const FilterPanel: FC<
                             </label>
                         </div>
                     )}
-                    {defaultFilter?.users == undefined && (
-                        <label className={css.col}>
-                            Filter By Users:
-                            <UsersFilter />
-                        </label>
-                    )}
+                    {defaultFilter?.users == undefined && <UsersFilter />}
                 </div>
                 <UsersSelected />
                 <button onClick={resetFilters}>Reset</button>

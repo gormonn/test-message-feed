@@ -12,7 +12,7 @@ import { axios } from './fake/api';
 const users = {
     get: (userId: string) => axios.get<User>(`/users/${userId}`),
     getMe: () => axios.get<User>('/users/me'),
-    find: (str: string) => axios.get<UserMeta[]>(`/users-meta/${str}`),
+    find: (str: string) => axios.get<UserMeta[]>(`/users/meta/${str}`),
 };
 
 const feed = {

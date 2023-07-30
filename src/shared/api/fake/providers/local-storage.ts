@@ -42,7 +42,7 @@ export const provider: ApiMethodsProvider = {
         return [500];
     },
     getUsersMeta: (config) => {
-        const string = config?.url?.split('/')?.[2].toLowerCase();
+        const string = config?.url?.split('/')?.[3].toLowerCase();
         if (string) {
             return [
                 200,

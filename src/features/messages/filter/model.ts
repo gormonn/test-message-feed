@@ -1,3 +1,4 @@
+import { debounce, reset, spread } from 'patronum';
 import {
     combine,
     createEffect,
@@ -6,11 +7,10 @@ import {
     restore,
     sample,
 } from 'effector';
-import { debounce, reset, spread } from 'patronum';
 import { createGate } from 'effector-react';
 import { feedModel } from 'entities/feed';
-import { api, FeedFilterPayload } from 'shared/api';
-import { Nullable, UserMeta } from 'shared/lib/types';
+import { api } from 'shared/api';
+import { FeedFilterPayload, Nullable, UserMeta } from 'shared/lib/types';
 
 const setAnd = createEvent<boolean>();
 const $isAnd = restore(setAnd, true);
@@ -25,7 +25,7 @@ const $usersToFind = restore<string>(setUsersToFind, '');
 const $usersToFindDeb = createStore<string>('');
 
 //todo: remove
-sample({ clock: setUsersToFind, target: $usersToFind });
+// sample({ clock: setUsersToFind, target: $usersToFind });
 
 const timeout = 300;
 debounce({ source: $isAnd, timeout, target: $isAndDeb });
