@@ -1,20 +1,18 @@
-import { axios } from 'shared/api/fake-api';
-import { Nullable, User, UserMeta } from 'shared/lib/types';
+import {
+    FeedFilterPayload,
+    FeedNewMessagePayload,
+    User,
+    UserMeta,
+} from 'shared/lib/types';
+import { axios } from './fake/api';
+
+// we can change mocks to real api by switching axios import
 // import axios from 'axios';
 
 const users = {
     get: (userId: string) => axios.get<User>(`/users/${userId}`),
     getMe: () => axios.get<User>('/users/me'),
     find: (str: string) => axios.get<UserMeta[]>(`/users-meta/${str}`),
-};
-
-export type FeedNewMessagePayload = {
-    text: string;
-};
-export type FeedFilterPayload = {
-    users?: Nullable<string[]>;
-    search?: string;
-    and?: boolean;
 };
 
 const feed = {

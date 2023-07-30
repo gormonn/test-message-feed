@@ -1,11 +1,34 @@
-import { Faker, en, base } from '@faker-js/faker';
+import { base, en, Faker } from '@faker-js/faker';
 import add from 'date-fns/add';
-import { getRand, getRandomDuration, getRandomUser } from 'shared/api/lib';
 import { FeedMessage, User } from 'shared/lib/types';
 
 const faker = new Faker({ locale: [en, base] });
 
-export const getFakeUser = (): User => ({
+export const getRand = (min: number, max: number) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
+
+export const getRandomUser = (users: User[]) =>
+    users[Math.floor(Math.random() * users.length)];
+
+export const getLastMessageUser = (feed: FeedMessage[], users: User[]): User =>
+    users.find((user) => user.id === feed[feed.length - 1].userId) as User; // guilty
+
+export const getLastMessageUserId = (feed: FeedMessage[]): User['id'] =>
+    feed[feed.length - 1].userId;
+
+export const getRandomDuration = () => {
+    return {
+        years: 0,
+        months: 0,
+        weeks: 0,
+        days: 0,
+        hours: getRand(0, 1),
+        minutes: getRand(0, 60),
+        seconds: getRand(0, 60),
+    };
+};
+
+export const getFakeUser = () => ({
     id: faker.string.uuid(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
@@ -21,8 +44,7 @@ type CreateMessageProps = {
     date: Date;
     text?: string;
 };
-// мб лучше в author - id пользователя
-// нужно генерить даты не в разнобой
+
 export const getFakeMessage = ({
     userId,
     date,
@@ -30,7 +52,6 @@ export const getFakeMessage = ({
 }: CreateMessageProps): FeedMessage => ({
     id: faker.string.uuid(),
     date: date.toISOString(),
-    // todo: max length 200
     text: text || faker.lorem.paragraphs({ min: 1, max: 3 }).slice(0, 200),
     userId,
 });
@@ -60,20 +81,3 @@ export const getFakeMessages = (users: User[], length = 30) => {
         });
     });
 };
-
-export type FakeFeedConfig = {
-    feedCount?: number;
-    usersCount?: number;
-};
-export type FakeFeedReturn = {
-    uid: string;
-    users: User[];
-    feed: FeedMessage[];
-};
-
-export function createFakeData(config?: FakeFeedConfig): FakeFeedReturn {
-    const users = getFakeUsers(config?.usersCount);
-    const feed = getFakeMessages(users, config?.feedCount);
-    const uid = faker.string.uuid();
-    return { users, feed, uid };
-}

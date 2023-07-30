@@ -2,10 +2,9 @@
 import * as Comlink from 'comlink';
 
 const blockingFunc = () => {
-    new Array(100_000_000)
+    return new Array(100_000_000)
         .map((elm, index) => elm + index)
         .reduce((acc, cur) => acc + cur, 0);
-    return 'aba';
 };
 
 export const WorkerMethods = {
@@ -13,5 +12,3 @@ export const WorkerMethods = {
 };
 
 Comlink.expose(WorkerMethods);
-
-// export  methods;
