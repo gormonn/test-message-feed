@@ -22,6 +22,12 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  dexie:
+    specifier: ^3.2.4
+    version: 3.2.4
+  dexie-react-hooks:
+    specifier: ^1.1.6
+    version: 1.1.6(@types/react@18.2.15)(dexie@3.2.4)(react@18.2.0)
   effector:
     specifier: ^22.8.6
     version: 22.8.6
@@ -3486,6 +3492,23 @@ packages:
   /destroy@1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
+    dev: false
+
+  /dexie-react-hooks@1.1.6(@types/react@18.2.15)(dexie@3.2.4)(react@18.2.0):
+    resolution: {integrity: sha512-xSblWtmPwhafWNWMECsW7zMMmBu8goH3QqTxEfwBNoNG1mgsM0oFclippev7ss9HhKICqBwTjgqpscci5Ed4mA==}
+    peerDependencies:
+      '@types/react': '>=16'
+      dexie: ^3.2 || ^4.0.1-alpha
+      react: '>=16'
+    dependencies:
+      '@types/react': 18.2.15
+      dexie: 3.2.4
+      react: 18.2.0
+    dev: false
+
+  /dexie@3.2.4:
+    resolution: {integrity: sha512-VKoTQRSv7+RnffpOJ3Dh6ozknBqzWw/F3iqMdsZg958R0AS8AnY9x9d1lbwENr0gzeGJHXKcGhAMRaqys6SxqA==}
+    engines: {node: '>=6.0'}
     dev: false
 
   /dir-glob@3.0.1:

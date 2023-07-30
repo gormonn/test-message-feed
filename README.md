@@ -36,21 +36,21 @@ Roadmap:
   - [x] Add filter logic to model
   - [x] Resolve AND/OR problems
   - [x] Add additional filters to UserInfo page
-  - [ ] Add highlight wrapper to texts
+  * [ ] Add highlight wrapper to texts
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
   - [ ] Add Skeleton loading animation
   - [ ] Add aria?
   - [ ] Use mount/unmount instead of display:none in Modal 
-  - [ ] DX lint imports
 - [ ] Build optimizations
   - [ ] css & js minimize
  
 # Additional Features
 ## Common
-- [ ] Add cheat-sheet with keyboard shortcuts
-- [ ] Cache Images from stable mocks
+- [ ] Using WebWorker to generate big amount of data
+- [ ] Cheat-sheet with keyboard shortcuts
+* [ ] Cache Images from stable mocks (to indexed db?)
 ## User
 - [ ] Edit User Data
 ## Feed
@@ -67,6 +67,7 @@ For thar purpose:
 - [ ] Add stable mocks with InnoDB
 
 # Known Bugs:
+  - [x] currentUser still random
   - [ ] List of users does not follow input when resized (fix or use floating UI)
   * [ ] Twice rendering http://localhost:5173/profile/:id 
   - [ ] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) Try @tanstack/react-virtual
@@ -80,14 +81,13 @@ For thar purpose:
 
 # Tech Debt:
   - [ ] https://www.w3.org/WAI/ARIA/apg/#dialog_modal
-  - [ ] Add stable mocks for testing purposes (e.g. user profile page)
-  - [ ] User cache control (need to choose a strategy)
+  - [x] Add stable mocks for testing purposes (e.g. user profile page)
+  * [ ] User cache control (need to choose a strategy)
   - [ ] Use contenteditable instead of textarea (to use stickers)
   - [ ] Add message state: Pending / Delivered / Seen / Error
-  - [ ] May be use some UI lib
+  * [ ] May be use some UI lib
 
 # Comments:
-
 ## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
   - It can depends on API design
   - Pros:
@@ -100,5 +100,30 @@ For thar purpose:
   - It's a bad practice in real life, when the feed is big
   - So in real life, we need to request messages in parts (by date, page/limit/offset, etc.)
 
-# Using REST API instead of WS or SSE:
+## Using REST API instead of WS or SSE:
   - In real life, we need to communicate in real time, but task is very abstract by requirements
+
+## IndexedDB doesn't work in Firefox Incognito
+[issue](https://bugzilla.mozilla.org/show_bug.cgi?id=781982)
+
+## Huge amount of data
+I did a little research and here's what I found out.
+Almost any virtualization library has a big data problem:
+- [react-virtuoso](https://github.com/petyosi/react-virtuoso/issues/728)
+- [@tanstack/react-virtual](https://github.com/TanStack/virtual/issues/460)
+- [react-cool-virtual](https://github.com/wellyshen/react-cool-virtual/issues/520)
+
+This is due to CSS [restrictions](https://stackoverflow.com/questions/16637530/whats-the-maximum-pixel-value-of-css-width-and-height-properties) on the height of elements:
+However, it is also reported that there is no such problem in the *react-virtualized* library.
+This is cool, but quite risky because this library is not supported.
+Try: [@egjs/infinitegrid](https://github.com/naver/egjs-infinitegrid)
+
+It is hypothetically possible to "work around" this problem with some methods:
+- lazy loading content in both directions
+- list content management, to remove unused messages at the moment
+- message caching
+Thus, we will come to the implementation of the "virtual window" but in a slightly different context.
+
+# What would I do otherwise
+- [ ] I would put the storage of users in IndexedDB with invalidation (not sure)
+
