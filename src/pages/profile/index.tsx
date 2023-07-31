@@ -37,7 +37,7 @@ export const ProfilePage: FC = () => {
             >
                 <FilterPanel
                     className={style.container}
-                    defaultFilter={{ and: true, users: [user.id] }}
+                    defaultFilters={{ and: true, users: [user.id] }}
                 />
                 <Panel>
                     <User.Container>

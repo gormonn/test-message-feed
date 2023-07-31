@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, useRef } from 'react';
+import { ComponentPropsWithoutRef, FC, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useGate, useUnit } from 'effector-react';
 import { messageSendModel } from 'features/messages/send';
@@ -12,10 +12,10 @@ import { UsersSelected } from './users-selected';
 
 export const FilterPanel: FC<
     ComponentPropsWithoutRef<'div'> & {
-        defaultFilter?: FeedFilterPayload;
+        defaultFilters?: FeedFilterPayload;
     }
-> = ({ className, defaultFilter, ...divProps }) => {
-    useGate(model.filtersDefault, defaultFilter);
+> = ({ className, defaultFilters, ...divProps }) => {
+    useGate(model.setDefaultFilters, defaultFilters);
 
     const [
         isModalOpen,
@@ -25,6 +25,7 @@ export const FilterPanel: FC<
         isAnd,
         isNeedAnd,
         resetFilters,
+        filters,
     ] = useUnit([
         messageSendModel.$isModalOpen,
         model.setTextFilter,
@@ -33,8 +34,11 @@ export const FilterPanel: FC<
         model.$isAnd,
         model.$isNeedAnd,
         model.resetFilters,
+        model.$filters,
     ]);
-
+    useEffect(() => {
+        console.log(filters, '$filters');
+    }, [filters]);
     const searchRef = useRef<HTMLInputElement>(null);
 
     useHotkeys(
@@ -54,7 +58,7 @@ export const FilterPanel: FC<
         <Panel className={clsx(css.filter, className)} {...divProps}>
             <div className={css.filters}>
                 <div className={css.col}>
-                    {defaultFilter?.search == undefined && (
+                    {defaultFilters?.search == undefined && (
                         <label className={css.col}>
                             Search By Text:
                             <input
@@ -68,7 +72,7 @@ export const FilterPanel: FC<
                             />
                         </label>
                     )}
-                    {defaultFilter?.and == undefined && (
+                    {defaultFilters?.and == undefined && (
                         <div className={clsx(css.row, css.radio_group)}>
                             <label className={css.radio}>
                                 <input
@@ -96,7 +100,7 @@ export const FilterPanel: FC<
                             </label>
                         </div>
                     )}
-                    {defaultFilter?.users == undefined && <UsersFilter />}
+                    {defaultFilters?.users == undefined && <UsersFilter />}
                 </div>
                 <UsersSelected />
                 <button onClick={resetFilters}>Reset</button>

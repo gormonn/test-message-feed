@@ -58,6 +58,7 @@ Roadmap:
 - [x] Press Ctrl + F to focus on Text Filter
 ## Filter
 - [ ] Save filters (persist)
+- [ ] Feed movement between found words / users 
 
 
 ## Profile Routing
@@ -68,8 +69,11 @@ For thar purpose:
 
 # Known Bugs:
   - [x] currentUser still random
+  * [x] Empty search text doesn't reset the filter by text
+  * [x] Reset filter doesn't work properly in profile (nothing changed in feed)
+  * [ ] Filter doesn't reset on change route (closeGate?)
   - [ ] List of users does not follow input when resized (fix or use floating UI)
-  * [ ] Twice rendering http://localhost:5173/profile/:id 
+  * [x] Twice rendering http://localhost:5173/profile/:id 
   - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) 
   - UserAvatar / UserFullName:
     - [ ] Bad skeletons layout

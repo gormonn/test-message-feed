@@ -133,42 +133,42 @@ reset({
     target: $foundUsers,
 });
 
-const filtersDefault = createGate<Nullable<FeedFilterPayload>>();
-const $defaultFilter = createStore<Nullable<FeedFilterPayload>>(null);
+const setDefaultFilters = createGate<Nullable<FeedFilterPayload>>();
+const $defaultFilters = createStore<Nullable<FeedFilterPayload>>(null);
 
 sample({
-    clock: filtersDefault.open,
-    target: $defaultFilter,
+    clock: setDefaultFilters.open,
+    filter: (defaultFilters) =>
+        defaultFilters ? Object.keys(defaultFilters).length > 0 : false,
+    target: $defaultFilters,
 });
 
 const $filters = combine(
-    $defaultFilter,
+    $defaultFilters,
     $isAndDeb,
     $textFilterDeb,
     $selectedUsersIds,
-    (defaultFilter, and, search, usersSet) => {
-        console.log(defaultFilter, 'defaultFilter');
-
+    (defaultFilters, and, search, usersSet): Nullable<FeedFilterPayload> => {
         const users = Array.from(usersSet);
         if (!search && !users?.length) {
-            return null;
+            return defaultFilters ? { users: defaultFilters.users } : null;
         }
         if (search && users?.length) {
             return {
                 search,
-                and: defaultFilter?.and || and,
-                users: defaultFilter?.users || users,
+                and: defaultFilters?.and || and,
+                users: defaultFilters?.users || users,
             };
         }
-        if (search && defaultFilter?.users)
+        if (search && defaultFilters?.users)
             return {
                 search,
-                users: defaultFilter?.users,
-                and: defaultFilter?.and,
+                users: defaultFilters?.users,
+                and: defaultFilters?.and,
             };
 
         if (search) return { search };
-        return { users: defaultFilter?.users || users };
+        return { users: defaultFilters?.users || users };
     },
 );
 
@@ -222,7 +222,7 @@ export const model = {
     closeFoundUsers,
     $isOpenFoundUsers,
 
-    filtersDefault,
+    setDefaultFilters,
     $filters,
     resetFilters,
 };

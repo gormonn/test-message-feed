@@ -64,16 +64,17 @@ export const provider: ApiMethodsProvider = {
     getFeed: (config) => {
         if (config?.params as FeedFilterPayload) {
             const { search, users, and } = config.params;
+
             // если and: true, то мы должны учитывать оба фильтра
             // если and: false, то мы можем учитывать любой из фильтров
             const newFeed = feed.filter((message) => {
                 const userFilter = matchUser(users, message.userId);
                 const textFilter = matchText(search, message.text);
-                if (and) {
-                    return userFilter && textFilter;
-                } else {
-                    return userFilter || textFilter;
-                }
+                if (and === true) return userFilter && textFilter;
+                if (and === false) return userFilter || textFilter;
+                if (search) return textFilter;
+                if (users) return userFilter;
+                return true;
             });
             return [200, newFeed];
         }
