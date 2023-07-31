@@ -93,22 +93,3 @@ For thar purpose:
 
 ## Using REST API instead of WS or SSE:
   - In real life, we need to communicate in real time, but task is very abstract by requirements
-
-## Huge amount of data
-I did a little research and here's what I found out.
-Almost any virtualization library has a big data problem:
-- [react-virtuoso](https://github.com/petyosi/react-virtuoso/issues/728)
-- [@tanstack/react-virtual](https://github.com/TanStack/virtual/issues/460)
-- [react-cool-virtual](https://github.com/wellyshen/react-cool-virtual/issues/520)
-
-This is due to CSS [restrictions](https://stackoverflow.com/questions/16637530/whats-the-maximum-pixel-value-of-css-width-and-height-properties) on the height of elements:
-However, it is also reported that there is no such problem in the *react-virtualized* library.
-This is cool, but quite risky because this library is not supported.
-Try: [@egjs/infinitegrid](https://github.com/naver/egjs-infinitegrid)
-
-It is hypothetically possible to "work around" this problem with some methods:
-- lazy loading content in both directions
-- list content management, to remove unused messages at the moment
-- message caching
-Thus, we will come to the implementation of the "virtual window" but in a slightly different context.
- 
