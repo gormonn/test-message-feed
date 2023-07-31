@@ -94,9 +94,6 @@ For thar purpose:
 ## Using REST API instead of WS or SSE:
   - In real life, we need to communicate in real time, but task is very abstract by requirements
 
-## IndexedDB doesn't work in Firefox Incognito
-[issue](https://bugzilla.mozilla.org/show_bug.cgi?id=781982)
-
 ## Huge amount of data
 I did a little research and here's what I found out.
 Almost any virtualization library has a big data problem:
