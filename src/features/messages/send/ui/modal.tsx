@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
-import { useUnit } from 'effector-react';
 import { animated, useChain, useSpring, useSpringRef } from 'react-spring';
+import { useUnit } from 'effector-react';
 import { shortcutsKeys, useHotkeys } from 'shared/lib/keyboard';
-import style from './form.module.scss';
 import { model } from '../model';
+import style from './form.module.scss';
 
 type ModalProps = {
     head: string | ReactNode;
@@ -60,7 +60,7 @@ export const Modal = forwardRef<
             className={style.modal}
             style={{ opacity, display }}
         >
-            <div tabIndex={-1} className={style.overlay} onClick={closeModal} />
+            <div className={style.overlay} onClick={closeModal} />
             <div className={style.content}>
                 <div className={style.head}>
                     {head}
@@ -72,3 +72,5 @@ export const Modal = forwardRef<
         </animated.div>
     );
 });
+
+Modal.displayName = 'Feed';

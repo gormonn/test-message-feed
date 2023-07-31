@@ -1,7 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { Nullable, User } from 'shared/lib/types';
-import { api } from 'shared/api';
 import { createGate } from 'effector-react';
+import { api } from 'shared/api';
+import { Nullable, User } from 'shared/lib/types';
 
 const getUser = createEvent<string>();
 const getUserFx = createEffect(async (userId: string) => {

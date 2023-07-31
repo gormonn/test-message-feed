@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { ErrorIcon } from 'shared/ui/icons';
+import css from './form.module.scss';
 import { MAX_LEN } from './lib';
-import style from './form.module.scss';
 
 export const ValidationError = ({ isValid }: { isValid: boolean }) => (
     <span
-        className={clsx(style.errorText, {
-            [style.show]: !isValid,
+        className={clsx(css.errorText, {
+            [css.show]: !isValid,
         })}
     >
         <ErrorIcon />

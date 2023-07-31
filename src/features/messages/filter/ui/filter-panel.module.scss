@@ -42,6 +42,11 @@
     cursor: pointer;
     text-overflow: clip;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
     &:hover{
       background: bg.$primary;
     }

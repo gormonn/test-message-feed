@@ -1,5 +1,5 @@
-import { model } from 'features/messages/filter/model';
 import { useUnit } from 'effector-react';
+import { model } from '../model';
 import css from './filter-panel.module.scss';
 
 export const UsersSelected = () => {
@@ -16,13 +16,15 @@ export const UsersSelected = () => {
                 style={{ overflow: 'auto', maxHeight: 104, width: 200 }}
             >
                 {selectedUsers.map((user) => (
-                    <div
+                    <button
                         key={user.id}
+                        type="button"
                         className={css.user}
                         onClick={() => removeUser(user.id)}
                     >
                         {user.firstName} {user.lastName}
-                    </div>
+                        <span>x</span>
+                    </button>
                 ))}
             </div>
         </div>

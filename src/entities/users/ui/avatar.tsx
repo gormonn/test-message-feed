@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
 import { Nullable, User } from 'shared/lib/types';
 import styles from './user.module.scss';
 

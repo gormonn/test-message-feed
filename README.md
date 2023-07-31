@@ -67,6 +67,7 @@ For thar purpose:
   - [x] Filter doesn't reset on change route (closeGate?)
   - [x] Twice rendering http://localhost:5173/profile/:id 
   - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter)
+  - [ ] May have accessibility issues. Problem with focus in "Filter By Users". Use
   - [ ] Bad skeletons layout UserAvatar / UserFullName
   - [ ] List of users does not follow input when resized (fix or use floating UI)
   - [ ] Wrong type in shortcutsKeys

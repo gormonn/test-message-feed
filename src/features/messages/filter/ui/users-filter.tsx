@@ -67,13 +67,14 @@ export const UsersFilter = () => {
                         }}
                     >
                         {foundUsersView.map((item) => (
-                            <div
+                            <button
                                 key={item.id}
+                                type="button"
                                 className={css.user}
                                 onClick={() => selectUser(item)}
                             >
                                 {item.firstName} {item.lastName}
-                            </div>
+                            </button>
                         ))}
                     </animated.div>,
                     document.body,

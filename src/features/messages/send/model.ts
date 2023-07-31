@@ -1,5 +1,5 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
 import { reset, status } from 'patronum';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import { api } from 'shared/api';
 
 const openModal = createEvent();
