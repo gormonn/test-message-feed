@@ -49,11 +49,8 @@ Roadmap:
 # Additional Features
 ## Common 
 - [x] Add Keyboard Shortcuts Cheat Sheet
-- [ ] Cache Images from stable mocks (to indexed db?) 
-## Feed
-- [ ] Add debounce / cancellation to load users/avatars while scrolling
-- [x] Press Ctrl + F to focus on Text Filter
-## Filter 
+- [ ] Cache Images from stable mocks (to indexed db?)  
+- [ ] Add debounce / cancellation to load users/avatars while scrolling 
 - [ ] Feed movement between found words / users (if using "search" instead of "filter by text")
 
 
@@ -64,29 +61,22 @@ For thar purpose:
 - [ ] Add stable mocks with InnoDB
 
 # Known Bugs:
-  - [ ] Wrong type in shortcutsKeys
   - [x] currentUser still random
-  * [x] Empty search text doesn't reset the filter by text
-  * [x] Reset filter doesn't work properly in profile (nothing changed in feed)
-  * [x] Filter doesn't reset on change route (closeGate?)
+  - [x] Empty search text doesn't reset the filter by text
+  - [x] Reset filter doesn't work properly in profile (nothing changed in feed)
+  - [x] Filter doesn't reset on change route (closeGate?)
+  - [x] Twice rendering http://localhost:5173/profile/:id 
+  - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter)
+  - [ ] Bad skeletons layout UserAvatar / UserFullName
   - [ ] List of users does not follow input when resized (fix or use floating UI)
-  * [x] Twice rendering http://localhost:5173/profile/:id 
-  - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) 
-  - UserAvatar / UserFullName:
-    - [ ] Bad skeletons layout
-    - [ ] Refactoring skeletons like that:
-      ```javascript lines
-        <img/>
-        {isLoading && <Skeleton/>}
-      ```
+  - [ ] Wrong type in shortcutsKeys
 
 # Tech Debt:
-  - [ ] https://www.w3.org/WAI/ARIA/apg/#dialog_modal
   - [x] Add stable mocks for testing purposes (e.g. user profile page)
-  * [ ] User cache control (need to choose a strategy)
+  - [ ] https://www.w3.org/WAI/ARIA/apg/#dialog_modal
   - [ ] Use contenteditable instead of textarea (to use stickers)
   - [ ] Add message state: Pending / Delivered / Seen / Error
-  * [ ] May be use some UI lib
+  - [ ] May be use some UI lib
 
 # Comments:
 ## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
@@ -124,7 +114,4 @@ It is hypothetically possible to "work around" this problem with some methods:
 - list content management, to remove unused messages at the moment
 - message caching
 Thus, we will come to the implementation of the "virtual window" but in a slightly different context.
-
-# What would I do otherwise
-- [ ] I would put the storage of users in IndexedDB with invalidation (not sure)
-
+ 
