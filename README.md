@@ -36,7 +36,7 @@ Roadmap:
   - [x] Add filter logic to model
   - [x] Resolve AND/OR problems
   - [x] Add additional filters to UserInfo page
-  * [ ] Add highlight wrapper to texts
+  - [x] Add highlight wrapper to texts
 - [ ] Beautify and tech debt
   - [ ] Fix time format
   - [ ] Fix date format
@@ -47,18 +47,14 @@ Roadmap:
   - [ ] css & js minimize
  
 # Additional Features
-## Common
-- [ ] Using WebWorker to generate big amount of data
+## Common 
 - [ ] Cheat-sheet with keyboard shortcuts
-* [ ] Cache Images from stable mocks (to indexed db?)
-## User
-- [ ] Edit User Data
+* [ ] Cache Images from stable mocks (to indexed db?) 
 ## Feed
 - [ ] Add debounce / cancellation to load users/avatars while scrolling
 - [x] Press Ctrl + F to focus on Text Filter
-## Filter
-- [ ] Save filters (persist)
-- [ ] Feed movement between found words / users 
+## Filter 
+- [ ] Feed movement between found words / users (if using "search" instead of "filter by text")
 
 
 ## Profile Routing

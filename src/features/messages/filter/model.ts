@@ -222,4 +222,6 @@ export const model = {
     $filters,
     resetFilters,
     $defaultFilters,
+
+    $textFilterDeb,
 };
