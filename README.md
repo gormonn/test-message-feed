@@ -48,8 +48,8 @@ Roadmap:
  
 # Additional Features
 ## Common 
-- [ ] Cheat-sheet with keyboard shortcuts
-* [ ] Cache Images from stable mocks (to indexed db?) 
+- [x] Add Keyboard Shortcuts Cheat Sheet
+- [ ] Cache Images from stable mocks (to indexed db?) 
 ## Feed
 - [ ] Add debounce / cancellation to load users/avatars while scrolling
 - [x] Press Ctrl + F to focus on Text Filter
@@ -64,6 +64,7 @@ For thar purpose:
 - [ ] Add stable mocks with InnoDB
 
 # Known Bugs:
+  - [ ] Wrong type in shortcutsKeys
   - [x] currentUser still random
   * [x] Empty search text doesn't reset the filter by text
   * [x] Reset filter doesn't work properly in profile (nothing changed in feed)

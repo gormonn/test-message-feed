@@ -61,9 +61,7 @@ export const FilterPanel: FC<
                                 ref={searchRef}
                                 className={css.input}
                                 type="text"
-                                onChange={(e) =>
-                                    setTextFilter(e.target.value.trim())
-                                }
+                                onChange={(e) => setTextFilter(e.target.value)}
                                 value={textFilter}
                             />
                         </label>
