@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, useEffect, useRef } from 'react';
+import { ComponentPropsWithoutRef, FC, useRef } from 'react';
 import clsx from 'clsx';
 import { useGate, useUnit } from 'effector-react';
 import { messageSendModel } from 'features/messages/send';
@@ -25,7 +25,6 @@ export const FilterPanel: FC<
         isAnd,
         isNeedAnd,
         resetFilters,
-        filters,
     ] = useUnit([
         messageSendModel.$isModalOpen,
         model.setTextFilter,
@@ -34,11 +33,8 @@ export const FilterPanel: FC<
         model.$isAnd,
         model.$isNeedAnd,
         model.resetFilters,
-        model.$filters,
     ]);
-    useEffect(() => {
-        console.log(filters, '$filters');
-    }, [filters]);
+
     const searchRef = useRef<HTMLInputElement>(null);
 
     useHotkeys(

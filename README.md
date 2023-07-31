@@ -71,7 +71,7 @@ For thar purpose:
   - [x] currentUser still random
   * [x] Empty search text doesn't reset the filter by text
   * [x] Reset filter doesn't work properly in profile (nothing changed in feed)
-  * [ ] Filter doesn't reset on change route (closeGate?)
+  * [x] Filter doesn't reset on change route (closeGate?)
   - [ ] List of users does not follow input when resized (fix or use floating UI)
   * [x] Twice rendering http://localhost:5173/profile/:id 
   - [x] On change feedCount and reload page -> smooth scroll down. (Flickering / Scrolling on filter) 

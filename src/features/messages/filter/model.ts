@@ -38,7 +38,8 @@ const findUsersFx = createEffect(async (str: string) => {
     return data;
 });
 
-const $foundUsers = createStore<UserMeta[]>([]);
+const clearFoundUsers = createEvent();
+const $foundUsers = createStore<UserMeta[]>([]).reset(clearFoundUsers);
 const $foundUsersView = createStore<UserMeta[]>([]);
 
 const closeFoundUsers = createEvent();
@@ -50,8 +51,6 @@ sample({
     fn: () => true,
     target: $isOpenFoundUsers,
 });
-
-const resetFoundUsers = createEvent();
 
 const selectUser = createEvent<UserMeta>();
 const removeUser = createEvent<string>();
@@ -125,16 +124,13 @@ sample({
 sample({
     source: $usersToFindDeb,
     filter: (val) => !val,
-    target: resetFoundUsers,
-});
-
-reset({
-    clock: resetFoundUsers,
-    target: $foundUsers,
+    target: clearFoundUsers,
 });
 
 const setDefaultFilters = createGate<Nullable<FeedFilterPayload>>();
-const $defaultFilters = createStore<Nullable<FeedFilterPayload>>(null);
+const $defaultFilters = createStore<Nullable<FeedFilterPayload>>(null).reset(
+    setDefaultFilters.close,
+);
 
 sample({
     clock: setDefaultFilters.open,
@@ -185,7 +181,7 @@ sample({
 const resetFilters = createEvent();
 
 reset({
-    clock: resetFilters,
+    clock: [resetFilters, setDefaultFilters.close],
     target: [
         $isAnd,
         $textFilter,
@@ -225,4 +221,5 @@ export const model = {
     setDefaultFilters,
     $filters,
     resetFilters,
+    $defaultFilters,
 };
