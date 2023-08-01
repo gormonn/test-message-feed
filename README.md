@@ -55,7 +55,7 @@ Roadmap:
 
 
 ## Profile Routing
-Since mocks are generated on the fly, you can's open the same profile after reload page.
+Since mocks are generated on the fly, you can's open the same profile after reload can't
 For thar purpose:
 - [x] Add stable mocks for testing purposes (e.g. user profile page) with LocalStorage
 - [ ] Add stable mocks with InnoDB
