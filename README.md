@@ -80,6 +80,9 @@ For thar purpose:
   - [ ] May be use some UI lib
 
 # Comments:
+## Architecture and state
+Here I am using the (FSD)[https://feature-sliced.design/] methodology with (Effector)[https://effector.dev/].
+
 ## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
   - It can depends on API design
   - Pros:
