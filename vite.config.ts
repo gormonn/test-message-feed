@@ -5,5 +5,8 @@ import { comlink } from 'vite-plugin-comlink';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    build: {
+        outDir: 'public',
+    },
     plugins: [tsconfigPaths(), react()],
 });
