@@ -1,3 +1,23 @@
+# Comments:
+## Architecture and state
+Here I am using the [FSD](https://feature-sliced.design/) methodology with [Effector](https://effector.dev/).
+
+## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
+  - It can depends on API design
+  - Pros:
+    - Light version of the message
+  - Cons:
+    - Additional delay when first loading a user
+    - Need to manage user cache
+    
+## Request all messages at once:
+  - It's a bad practice in real life, when the feed is big
+  - So in real life, we need to request messages in parts (by date, page/limit/offset, etc.)
+
+## Using REST API instead of WS or SSE:
+  - In real life, we need to communicate in real time, but task is very abstract by requirements
+
+# Task
 Лента текстовых сообщений с фильтрацией.
 Сообщения состоят из:
 - даты и времени;
@@ -55,7 +75,7 @@ Roadmap:
 
 
 ## Profile Routing
-Since mocks are generated on the fly, you can's open the same profile after reload page.
+Since mocks are generated on the fly, you can's open the same profile after reload can't
 For thar purpose:
 - [x] Add stable mocks for testing purposes (e.g. user profile page) with LocalStorage
 - [ ] Add stable mocks with InnoDB
@@ -78,19 +98,3 @@ For thar purpose:
   - [ ] Use contenteditable instead of textarea (to use stickers)
   - [ ] Add message state: Pending / Delivered / Seen / Error
   - [ ] May be use some UI lib
-
-# Comments:
-## Type of FeedMessage contains userId prop instead of userFullName / userAvatar props:
-  - It can depends on API design
-  - Pros:
-    - Light version of the message
-  - Cons:
-    - Additional delay when first loading a user
-    - Need to manage user cache
-    
-## Request all messages at once:
-  - It's a bad practice in real life, when the feed is big
-  - So in real life, we need to request messages in parts (by date, page/limit/offset, etc.)
-
-## Using REST API instead of WS or SSE:
-  - In real life, we need to communicate in real time, but task is very abstract by requirements
