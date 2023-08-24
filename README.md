@@ -69,6 +69,7 @@ Roadmap:
 # Additional Features
 ## Common 
 - [x] Add Keyboard Shortcuts Cheat Sheet
+- [ ] Fix deplow workflow with pnpm: [issue](https://github.com/orgs/pnpm/discussions/3953)
 - [ ] Cache Images from stable mocks (to indexed db?)  
 - [ ] Add debounce / cancellation to load users/avatars while scrolling 
 - [ ] Feed movement between found words / users (if using "search" instead of "filter by text")
