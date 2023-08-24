@@ -3,10 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Dmitriy Aleksandrovich Chernukho",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:gh": "tsc && PREFIX_PATHS=true vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "deploy": "tsc && PREFIX_PATHS=true vite build && gh-pages -d public",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,6 +20,7 @@
     "date-fns": "^2.30.0",
     "effector": "^22.8.6",
     "effector-react": "^22.5.3",
+    "gh-pages": "^6.0.0",
     "keyboard-event-key-type": "^1.5.0",
     "normalize.css": "^8.0.1",
     "patronum": "^1.19.1",
