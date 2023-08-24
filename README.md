@@ -1,3 +1,7 @@
+# Publish to Github Pages
+[Vite Static Deploy](https://vitejs.dev/guide/static-deploy.html#github-pages)
+Pipeline starts after push to main.
+
 # Comments:
 ## Architecture and state
 Here I am using the [FSD](https://feature-sliced.design/) methodology with [Effector](https://effector.dev/).

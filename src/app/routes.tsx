@@ -6,5 +6,6 @@ export const AppRoutes = () => (
     <Routes>
         <Route path="/" element={<PageFeed />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="*" element={<>404</>} />
     </Routes>
 );
