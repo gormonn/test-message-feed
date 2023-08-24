@@ -40,8 +40,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Build
-        run: pnpm run build
+      - name: Build for GitHubPages with prefix
+        run: pnpm run build:pages
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
